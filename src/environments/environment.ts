@@ -2,12 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 const firebaseConfig = {
-  apiKey: 'AIzaSyDPI4R8IoUQQZjjElwLDW3llKiK1peh6OQ',
-  authDomain: 'thrifty-1a99d.firebaseapp.com',
-  projectId: 'thrifty-1a99d',
-  storageBucket: 'thrifty-1a99d.appspot.com',
-  messagingSenderId: '421983694464',
-  appId: '1:421983694464:web:808060d5c95448f20dc065',
+  apiKey: 'AIzaSyBhMqZuaWJOh5ftKD_-9V0Tqr8M8XoB_R4',
+  authDomain: 'thrifty-shopping-assistant.firebaseapp.com',
+  projectId: 'thrifty-shopping-assistant',
+  storageBucket: 'thrifty-shopping-assistant.appspot.com',
+  messagingSenderId: '884016081747',
+  appId: '1:884016081747:web:ecf4840da822105c854fa6',
 };
 
 export const environment = {
