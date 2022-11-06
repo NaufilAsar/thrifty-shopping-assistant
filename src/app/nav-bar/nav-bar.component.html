@@ -1,1 +1,187 @@
-<p>nav-bar works!</p>
+<nav
+  class="px-1 py-1 bg-white antialiased top-0 sticky text-gray-700 z-40 w-full backdrop-blur flex-none transition-colors duration-500 bg-white/95 supports-backdrop-blur:bg-white/60 dark:bg-transparent"
+>
+  <div
+    class="px-3 py-4 mx-auto rounded-md"
+    [ngClass]="{ 'cool-box-shadow': hideMobileMenu, '': !hideMobileMenu }"
+  >
+    <div class="flex justify-between">
+      <!-- logo -->
+      <div id="logo" class="flex space-x-2 items-center">
+        <img
+          class="h-8 w-8"
+          src="../../assets/imgs/logo-transparent.png"
+          alt=""
+        />
+        <span class="text-2xl font-bold">Thrifty</span>
+      </div>
+      <div class="flex space-x-10">
+        <!-- primary nav -->
+        <div id="primary-nav" class="hidden md:flex h-7 items-center">
+          <a
+            (click)="onNavLinkClick('/home')"
+            class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
+            >Home</a
+          >
+          <a
+            (click)="onNavLinkClick('/about')"
+            class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
+            >About</a
+          >
+          <a
+            (click)="onNavLinkClick('/contact')"
+            class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
+            >Contact</a
+          >
+          <a
+            (click)="onNavLinkClick('/login')"
+            class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
+            >Login</a
+          >
+          <a
+            (click)="onNavLinkClick('/signup')"
+            class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
+            >Signup</a
+          >
+        </div>
+      </div>
+      <!-- secondary nav -->
+      <div id="secondary-nav" class="hidden md:flex h-7 items-center space-x-4">
+        <button
+          id="dropdownDefault"
+          data-dropdown-toggle="dropdown"
+          class="text-gray-700 bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
+          type="button"
+        >
+          Search by category
+          <svg
+            class="ml-2 w-4 h-4"
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile -->
+      <div class="md:hidden flex items-center">
+        <button class="mobile-menu-button" (click)="onMenuClick()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    [hidden]="hideMobileMenu"
+    class="md:hidden rounded-lg z-40 cool-box-shadow"
+    style="
+      box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+        rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    "
+  >
+    <a
+      (click)="onNavLinkClick('/home')"
+      class="block py-4 px-6 hover:bg-gray-200"
+      >Home</a
+    >
+    <a
+      (click)="onNavLinkClick('/about')"
+      class="block py-4 px-6 hover:bg-gray-200"
+      >About</a
+    >
+    <a
+      (click)="onNavLinkClick('/contact')"
+      class="block py-4 px-6 hover:bg-gray-200"
+      >Contact</a
+    >
+    <a
+      (click)="onNavLinkClick('/login')"
+      class="block py-4 px-6 hover:bg-gray-200"
+      >Login</a
+    >
+    <a
+      (click)="onNavLinkClick('/signup')"
+      class="block py-4 px-6 hover:bg-gray-200"
+      >Signup</a
+    >
+  </div>
+</nav>
+
+<!-- Here -->
+
+<!-- Dropdown menu -->
+<div
+  id="dropdown"
+  class="mt-12 hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow"
+  style="
+    position: absolute;
+    inset: 0px auto auto 0px;
+    margin: 0px;
+    transform: translate3d(0px, 476px, 0px);
+  "
+  data-popper-reference-hidden=""
+  data-popper-escaped=""
+  data-popper-placement="bottom"
+>
+  <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownDefault">
+    <li>
+      <a
+        (click)="onCategoryClick('Computer')"
+        class="block py-2 px-4 hover:bg-gray-100"
+        >Computer</a
+      >
+    </li>
+
+    <li>
+      <a
+        (click)="onCategoryClick('Fashion')"
+        class="block py-2 px-4 hover:bg-gray-100"
+        >Fashion</a
+      >
+    </li>
+    <li>
+      <a
+        (click)="onCategoryClick('Sports')"
+        class="block py-2 px-4 hover:bg-gray-100"
+        >Sports</a
+      >
+    </li>
+    <li>
+      <a
+        (click)="onCategoryClick('Home Appliances')"
+        class="block py-2 px-4 hover:bg-gray-100"
+        >Home Appliances</a
+      >
+    </li>
+    <li>
+      <a
+        (click)="onCategoryClick('Health')"
+        class="block py-2 px-4 hover:bg-gray-100"
+        >Health</a
+      >
+    </li>
+  </ul>
+</div>

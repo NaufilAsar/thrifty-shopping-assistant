@@ -3,9 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+//forms
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+//api
+import { HttpClientModule } from '@angular/common/http';
+
 // Firebase
 import { AngularFireModule } from '@angular/fire/compat/';
-import { environment } from '../environments/environment';
+
+//lottie animations
+import { LottieModule } from 'ngx-lottie';
+
+// Components
 import { AboutPageComponent } from './about-page/about-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -16,6 +26,11 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
 import { FooterComponent } from './footer/footer.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { PriceInfoPageComponent } from './price-info-page/price-info-page.component';
+import { ProductComponent } from './product/product.component';
+
+export function playerFactory() {
+  return import('lottie-web');
+}
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBhMqZuaWJOh5ftKD_-9V0Tqr8M8XoB_R4',
@@ -39,10 +54,15 @@ const firebaseConfig = {
     FooterComponent,
     HomePageComponent,
     PriceInfoPageComponent,
+    ProductComponent,
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    LottieModule.forRoot({ player: playerFactory }),
     AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [],
