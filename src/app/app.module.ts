@@ -17,12 +17,33 @@ import { FooterComponent } from './footer/footer.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { PriceInfoPageComponent } from './price-info-page/price-info-page.component';
 
+const firebaseConfig = {
+  apiKey: 'AIzaSyBhMqZuaWJOh5ftKD_-9V0Tqr8M8XoB_R4',
+  authDomain: 'thrifty-shopping-assistant.firebaseapp.com',
+  projectId: 'thrifty-shopping-assistant',
+  storageBucket: 'thrifty-shopping-assistant.appspot.com',
+  messagingSenderId: '884016081747',
+  appId: '1:884016081747:web:ecf4840da822105c854fa6',
+};
+
 @NgModule({
-  declarations: [AppComponent, AboutPageComponent, ContactPageComponent, LoginPageComponent, LogoutPageComponent, SignupPageComponent, NavBarComponent, NotFoundPageComponent, FooterComponent, HomePageComponent, PriceInfoPageComponent],
+  declarations: [
+    AppComponent,
+    AboutPageComponent,
+    ContactPageComponent,
+    LoginPageComponent,
+    LogoutPageComponent,
+    SignupPageComponent,
+    NavBarComponent,
+    NotFoundPageComponent,
+    FooterComponent,
+    HomePageComponent,
+    PriceInfoPageComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [],
   bootstrap: [AppComponent],
