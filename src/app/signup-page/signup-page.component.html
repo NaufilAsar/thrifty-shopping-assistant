@@ -1,7 +1,8 @@
 <form [formGroup]="signupForm" (ngSubmit)="signinUser()" class="mb-8">
+  <div *ngIf="!showPopUp" height="1000px" width="100%">&nbsp;</div>
   <div class="text-center">
-    <h1 class="text-6xl font-ubuntu font-bold my-10 mt-20">Sign up</h1>
-    <p class="text-xl mb-12 text-gray-600">
+    <h1 class="text-6xl font-ubuntu font-bold mt-10">Sign up</h1>
+    <p class="text-xl my-12 text-gray-600">
       Join us to receive email notifications for products you like. Completely
       optional.
     </p>

@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+//icon
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 // flowbite
 import 'flowbite';
 
@@ -61,6 +64,7 @@ const firebaseConfig = {
     ProductComponent,
   ],
   imports: [
+    FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,

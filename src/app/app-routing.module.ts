@@ -15,42 +15,42 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomePageComponent,
-    data: { animationState: 'One' },
+    data: { animation: 'One' },
   },
   {
     path: 'about',
     component: AboutPageComponent,
-    data: { animationState: 'Two' },
+    data: { animation: 'Two' },
   },
   {
     path: 'contact',
     component: ContactPageComponent,
-    data: { animationState: 'Three' },
+    data: { animation: 'Three' },
   },
   {
     path: 'login',
     component: LoginPageComponent,
-    data: { animationState: 'Four' },
+    data: { animation: 'Four' },
   },
   {
     path: 'logout',
     component: LogoutPageComponent,
-    data: { animationState: 'Four' },
+    data: { animation: 'Four' },
   },
   {
     path: 'signup',
     component: SignupPageComponent,
-    data: { animationState: 'Five' },
+    data: { animation: 'Five' },
   },
   {
     path: 'price-info',
     component: PriceInfoPageComponent,
-    data: { animationState: 'Six' },
+    data: { animation: 'Six' },
   },
   {
     path: '**',
     component: NotFoundPageComponent,
-    data: { animationState: 'Seven' },
+    data: { animation: 'Seven' },
   },
 ];
 

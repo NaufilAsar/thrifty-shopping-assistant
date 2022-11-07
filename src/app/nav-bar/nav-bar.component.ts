@@ -1,4 +1,13 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { trigger, transition, style, animate } from '@angular/animations';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  Input,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -6,10 +15,25 @@ import { AuthService } from '../services/auth.service';
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        // :enter is alias to 'void => *'
+        style({ opacity: 0 }),
+        animate(50, style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        // :leave is alias to '* => void'
+        animate(50, style({ opacity: 0 })),
+      ]),
+    ]),
+  ],
 })
 export class NavBarComponent implements OnInit {
+  @Output() changeThemeEvent = new EventEmitter();
   text = 'hello';
   hideMobileMenu = true;
+  @Input() isDarkEnable: boolean = false;
 
   constructor(
     private eRef: ElementRef,
@@ -42,5 +66,9 @@ export class NavBarComponent implements OnInit {
   }
   onCategoryClick(categoryName: string) {
     this.router.navigateByUrl('/home?category=' + categoryName);
+  }
+
+  changeBodyTheme() {
+    this.changeThemeEvent.emit();
   }
 }

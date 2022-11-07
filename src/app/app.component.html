@@ -1,5 +1,10 @@
-<app-nav-bar></app-nav-bar>
-<div [@triggerName]="prepareRoute(outlet)">
-  <router-outlet #outlet="outlet"></router-outlet>
+<div [ngClass]="{ dark: isDarkEnable }">
+  <app-nav-bar
+    [isDarkEnable]="isDarkEnable"
+    (changeThemeEvent)="changeTheme()"
+  ></app-nav-bar>
+  <div [@routeAnimations]="getRouteAnimationData()">
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
 </div>
-<app-footer></app-footer>

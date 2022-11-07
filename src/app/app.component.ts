@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { routeTransitionAnimations } from './route-animations';
+import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
+import { slideInAnimation } from './route-animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [routeTransitionAnimations],
+  animations: [slideInAnimation],
 })
 export class AppComponent {
+  isDarkEnable = false;
   title = 'major-project';
+  constructor(private contexts: ChildrenOutletContexts) {}
 
   prepareRoute(outlet: RouterOutlet) {
     return (
@@ -17,5 +19,15 @@ export class AppComponent {
       outlet.activatedRouteData &&
       outlet.activatedRouteData['animationState']
     );
+  }
+
+  getRouteAnimationData() {
+    return this.contexts.getContext('primary')?.route?.snapshot?.data?.[
+      'animation'
+    ];
+  }
+
+  changeTheme() {
+    this.isDarkEnable = !this.isDarkEnable;
   }
 }

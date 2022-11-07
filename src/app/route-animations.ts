@@ -8,52 +8,49 @@ import {
   animate,
 } from '@angular/animations';
 
-export const routeTransitionAnimations = trigger('triggerName', [
+export const slideInAnimation = trigger('routeAnimations', [
   transition(
-    'One => Two,One => Three,One => Four,One => Five,One => Six,One => Seven,Two => Three,Two => Four,Two => Five,Two => Six,Two => Seven,Three => Four,Three => Five,Three => Six,Three => Seven,Four => Five,Four => Six,Four => Seven,Five => Six,Five => Seven,Six => Seven',
+    'One => One, One => Two, One => Three, One => Four, One => Five, One => Six, One => Seven,Two => Two, Two => Three, Two => Four, Two => Five, Two => Six, Two => Seven,Three=>Three, Three => Four, Three => Five, Three => Six, Three => Seven,Four=>Four, Four => Five, Four => Six, Four => Seven,Five=>Five, Five => Six, Five => Seven,Six=>Six, Six => Seven, Seven => Seven',
     [
       style({ position: 'relative' }),
       query(':enter, :leave', [
         style({
           position: 'absolute',
           top: 0,
-          right: 0,
+          left: 0,
           width: '100%',
         }),
       ]),
-      query(':enter', [style({ right: '-100%', opacity: 0 })]),
+      query(':enter', [style({ left: '-100%' })]),
+      query(':leave', animateChild()),
+      group([
+        query(':leave', [animate('300ms ease-out', style({ left: '100%' }))]),
+        query(':enter', [animate('300ms ease-out', style({ left: '0%' }))]),
+      ]),
+    ]
+  ),
+
+  transition(
+    'Seven => Seven,Seven => Six,Seven => Five,Seven => Four,Seven => Three,Seven => Two,Seven => One, Six => Six,Six => Five,Six => Four,Six => Three,Six => Two,Six => One, Five => Five,Five => Four,Five => Three,Five => Two,Five => One, Four => Four,Four => Three,Four => Two,Four => One, Three => Three,Three => Two,Three => One, Two => Two,Two => One, One => One',
+    [
+      style({ position: 'relative' }),
+      query(':enter, :leave', [
+        style({
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+        }),
+      ]),
+      query(':enter', [style({ left: '-100%' })]),
       query(':leave', animateChild()),
       group([
         query(':leave', [
-          animate('400ms ease-out', style({ right: '100%', opacity: 0 })),
+          animate('200ms ease-out', style({ left: '100%', opacity: 0 })),
         ]),
-        query(':enter', [
-          animate('400ms ease-out', style({ right: '0%', opacity: 1 })),
-        ]),
+        query(':enter', [animate('300ms ease-out', style({ left: '0%' }))]),
+        query('@*', animateChild(), { optional: true }),
       ]),
-      query(':enter', animateChild()),
     ]
   ),
-  transition('* => *', [
-    style({ position: 'relative' }),
-    query(':enter, :leave', [
-      style({
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-      }),
-    ]),
-    query(':enter', [style({ left: '-100%', opacity: 0 })]),
-    query(':leave', animateChild()),
-    group([
-      query(':leave', [
-        animate('400ms ease-out', style({ left: '100%', opacity: 0 })),
-      ]),
-      query(':enter', [
-        animate('400ms ease-out', style({ left: '0%', opacity: 1 })),
-      ]),
-    ]),
-    query(':enter', animateChild()),
-  ]),
 ]);
