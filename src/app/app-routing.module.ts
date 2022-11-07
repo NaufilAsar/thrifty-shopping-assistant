@@ -12,16 +12,46 @@ import { SignupPageComponent } from './signup-page/signup-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  // { path: 'nav-bar', component: NavBarComponent },
-  { path: 'home', component: HomePageComponent },
-  { path: 'about', component: AboutPageComponent },
-  { path: 'contact', component: ContactPageComponent },
-  { path: 'login', component: LoginPageComponent },
-  { path: 'logout', component: LogoutPageComponent },
-  { path: 'signup', component: SignupPageComponent },
-  { path: 'logout', component: LogoutPageComponent },
-  { path: 'price-info', component: PriceInfoPageComponent },
-  { path: '**', component: NotFoundPageComponent },
+  {
+    path: 'home',
+    component: HomePageComponent,
+    data: { animationState: 'One' },
+  },
+  {
+    path: 'about',
+    component: AboutPageComponent,
+    data: { animationState: 'Two' },
+  },
+  {
+    path: 'contact',
+    component: ContactPageComponent,
+    data: { animationState: 'Three' },
+  },
+  {
+    path: 'login',
+    component: LoginPageComponent,
+    data: { animationState: 'Four' },
+  },
+  {
+    path: 'logout',
+    component: LogoutPageComponent,
+    data: { animationState: 'Four' },
+  },
+  {
+    path: 'signup',
+    component: SignupPageComponent,
+    data: { animationState: 'Five' },
+  },
+  {
+    path: 'price-info',
+    component: PriceInfoPageComponent,
+    data: { animationState: 'Six' },
+  },
+  {
+    path: '**',
+    component: NotFoundPageComponent,
+    data: { animationState: 'Seven' },
+  },
 ];
 
 @NgModule({

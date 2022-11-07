@@ -6,9 +6,6 @@ import { AuthService } from '../services/auth.service';
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
-  host: {
-    '(document:click)': 'onClick($event)',
-  },
 })
 export class NavBarComponent implements OnInit {
   text = 'hello';
@@ -41,6 +38,9 @@ export class NavBarComponent implements OnInit {
       window.location.reload();
     }
     this.router.navigate([btnName]);
+    this.hideMobileMenu = true;
   }
-  onCategoryClick(categoryName: string) {}
+  onCategoryClick(categoryName: string) {
+    this.router.navigateByUrl('/home?category=' + categoryName);
+  }
 }

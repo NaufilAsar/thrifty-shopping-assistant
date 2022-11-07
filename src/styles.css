@@ -7,7 +7,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+main {
+  position: relative;
+}
 :root {
   --yellow: #fdc613;
   --lightyellow: #fdfde3;
@@ -33,4 +35,7 @@ body {
 
 .font-poppins {
   font-family: "Poppins";
+}
+.font-ubuntu {
+  font-family: "Ubuntu";
 }

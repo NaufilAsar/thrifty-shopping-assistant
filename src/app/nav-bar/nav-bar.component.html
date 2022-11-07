@@ -33,7 +33,15 @@
             class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
             >Contact</a
           >
+
           <a
+            *ngIf="authService.userLoggedIn"
+            (click)="onNavLinkClick('/logout')"
+            class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
+            >Logout</a
+          >
+          <a
+            *ngIf="!authService.userLoggedIn"
             (click)="onNavLinkClick('/login')"
             class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
             >Login</a
@@ -50,7 +58,7 @@
         <button
           id="dropdownDefault"
           data-dropdown-toggle="dropdown"
-          class="text-gray-700 bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
+          class="text-gray-700 bg-yellow-300 hover:bg-[#FBDF07] focus:ring-2 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
           type="button"
         >
           Search by category
@@ -72,7 +80,7 @@
         </button>
       </div>
 
-      <!-- Mobile -->
+      <!-- Mobile Toggle Button -->
       <div class="md:hidden flex items-center">
         <button class="mobile-menu-button" (click)="onMenuClick()">
           <svg
@@ -93,6 +101,7 @@
       </div>
     </div>
   </div>
+  <!-- Mobile Menu -->
   <div
     [hidden]="hideMobileMenu"
     class="md:hidden rounded-lg z-40 cool-box-shadow"
@@ -118,6 +127,13 @@
       >Contact</a
     >
     <a
+      *ngIf="authService.userLoggedIn"
+      (click)="onNavLinkClick('/logout')"
+      class="block py-4 px-6 hover:bg-gray-200"
+      >Logout</a
+    >
+    <a
+      *ngIf="!authService.userLoggedIn"
       (click)="onNavLinkClick('/login')"
       class="block py-4 px-6 hover:bg-gray-200"
       >Login</a
@@ -129,8 +145,6 @@
     >
   </div>
 </nav>
-
-<!-- Here -->
 
 <!-- Dropdown menu -->
 <div
@@ -150,7 +164,7 @@
     <li>
       <a
         (click)="onCategoryClick('Computer')"
-        class="block py-2 px-4 hover:bg-gray-100"
+        class="block py-2 px-4 hover:bg-gray-100 cursor-pointer"
         >Computer</a
       >
     </li>
@@ -158,28 +172,28 @@
     <li>
       <a
         (click)="onCategoryClick('Fashion')"
-        class="block py-2 px-4 hover:bg-gray-100"
+        class="block py-2 px-4 hover:bg-gray-100 cursor-pointer"
         >Fashion</a
       >
     </li>
     <li>
       <a
         (click)="onCategoryClick('Sports')"
-        class="block py-2 px-4 hover:bg-gray-100"
+        class="block py-2 px-4 hover:bg-gray-100 cursor-pointer"
         >Sports</a
       >
     </li>
     <li>
       <a
         (click)="onCategoryClick('Home Appliances')"
-        class="block py-2 px-4 hover:bg-gray-100"
+        class="block py-2 px-4 hover:bg-gray-100 cursor-pointer"
         >Home Appliances</a
       >
     </li>
     <li>
       <a
         (click)="onCategoryClick('Health')"
-        class="block py-2 px-4 hover:bg-gray-100"
+        class="block py-2 px-4 hover:bg-gray-100 cursor-pointer"
         >Health</a
       >
     </li>

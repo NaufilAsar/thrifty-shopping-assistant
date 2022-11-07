@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// flowbite
+import 'flowbite';
+
 //forms
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -12,8 +15,9 @@ import { HttpClientModule } from '@angular/common/http';
 // Firebase
 import { AngularFireModule } from '@angular/fire/compat/';
 
-//lottie animations
+// animations
 import { LottieModule } from 'ngx-lottie';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Components
 import { AboutPageComponent } from './about-page/about-page.component';
@@ -61,6 +65,7 @@ const firebaseConfig = {
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     LottieModule.forRoot({ player: playerFactory }),
     AngularFireModule.initializeApp(firebaseConfig),
