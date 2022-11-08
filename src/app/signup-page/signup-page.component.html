@@ -2,7 +2,7 @@
   <form
     [formGroup]="signupForm"
     (ngSubmit)="signinUser()"
-    class="m-8 glass-drop-effect rounded-lg dark:border-gray-700 dark:bg-dark-bootstrap-transparent w-5/6 md:w-3/6 lg:w-5/12 p-3"
+    class="m-8 glass-drop-effect rounded-lg dark:border-gray-700 dark:bg-dark-bootstrap-transparent w-5/6 md:w-4/6 lg:w-5/12 p-10"
   >
     <div *ngIf="!showPopUp" height="1000px" width="100%">&nbsp;</div>
     <div class="text-center">
@@ -22,7 +22,7 @@
         formControlName="email"
         placeholder="Email"
         autocomplete="on"
-        class="block text-center rounded-md border-none shadow-md my-5 mx-auto sm:w-4/6 md:w-4/6 lg:w-4/6 text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95"
+        class="block text-center rounded-md border-none shadow-md my-5 mx-auto w-full md:w-96 text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95"
       />
       <input
         id="password"
@@ -30,7 +30,7 @@
         autocomplete="off"
         formControlName="password"
         placeholder="Password"
-        class="block text-center rounded-md border-none shadow-md my-5 mx-auto sm:w-4/6 md:w-4/6 lg:w-4/6 text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95"
+        class="block text-center rounded-md border-none shadow-md my-5 mx-auto w-full md:w-96 text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95"
       />
       <button
         type="submit"
