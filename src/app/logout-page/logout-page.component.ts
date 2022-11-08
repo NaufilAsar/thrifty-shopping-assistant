@@ -28,6 +28,14 @@ export class LogoutPageComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  wait(ms: number) {
+    var start = new Date().getTime();
+    var end = start;
+    while (end < start + ms) {
+      end = new Date().getTime();
+    }
+  }
+
   logoutUser() {
     console.log('Log status' + localStorage.getItem('isUserLoggedIn'));
 
@@ -35,6 +43,8 @@ export class LogoutPageComponent implements OnInit {
       this.authService.logoutUser();
       this.message = 'User logged out successfully.';
       this.showPopUp = true;
+      this.wait(400); // wait for 4 milliseconds
+      this.router.navigate(['/login']);
     } else {
       this.message = 'Please log in first. ';
       this.showPopUp = true;

@@ -1,6 +1,6 @@
-<div [ngClass]="{ dark: isDarkEnable }">
+<div [ngClass]="{ dark: isDarkModeEnable }">
   <app-nav-bar
-    [isDarkEnable]="isDarkEnable"
+    [isDarkEnable]="isDarkModeEnable"
     (changeThemeEvent)="changeTheme()"
   ></app-nav-bar>
   <div [@routeAnimations]="getRouteAnimationData()">

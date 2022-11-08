@@ -3,6 +3,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 @tailwind base;
 @tailwind components;
@@ -30,13 +33,17 @@ body {
   background: #fafafa;
 }
 
-.cool-box-shadow {
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-}
-
 .font-poppins {
   font-family: "Poppins";
 }
 .font-ubuntu {
   font-family: "Ubuntu";
+}
+
+.glass-drop-effect {
+  background: #ffffff47;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.6px);
+  -webkit-backdrop-filter: blur(4.6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }

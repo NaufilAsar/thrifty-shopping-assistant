@@ -69,6 +69,7 @@ export class NavBarComponent implements OnInit {
   }
 
   changeBodyTheme() {
+    this.isDarkEnable = !this.isDarkEnable;
     this.changeThemeEvent.emit();
   }
 }

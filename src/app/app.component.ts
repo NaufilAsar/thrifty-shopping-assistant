@@ -9,7 +9,7 @@ import { slideInAnimation } from './route-animations';
   animations: [slideInAnimation],
 })
 export class AppComponent {
-  isDarkEnable = false;
+  isDarkModeEnable = false;
   title = 'major-project';
   constructor(private contexts: ChildrenOutletContexts) {}
 
@@ -28,6 +28,11 @@ export class AppComponent {
   }
 
   changeTheme() {
-    this.isDarkEnable = !this.isDarkEnable;
+    this.isDarkModeEnable = !this.isDarkModeEnable;
+    const bd = document.body;
+    bd.classList.toggle('dark');
+    if (!this.isDarkModeEnable)
+      bd.className = 'bg-gradient-to-br from-[#95d1c8] to-[#58aca0]';
+    else bd.className = 'bg-gradient-to-br from-[#0f172a] to-[#1e293b]';
   }
 }

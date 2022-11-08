@@ -1,54 +1,61 @@
 <nav
-  class="bg-transparent text-gray-700 px-1 py-1 antialiased top-0 sticky z-40 w-full backdrop-blur flex-none transition-colors duration-500 supports-backdrop-blur:bg-white/60 dark:bg-transparent"
+  class="dark:bg-transparent dark:border-gray-900 dark:shadow-2xl px-1 py-1 rounded-b-2xl antialiased top-0 sticky z-40 w-full glass-drop-effect"
 >
-  <div
-    class="px-3 py-4 mx-auto rounded-md"
-    [ngClass]="{ 'cool-box-shadow': hideMobileMenu, '': !hideMobileMenu }"
-  >
+  <div class="px-3 py-4 mx-auto">
     <div class="flex justify-between">
       <!-- logo -->
       <div id="logo" class="flex space-x-2 items-center">
-        <img
-          class="h-8 w-8"
-          src="../../assets/imgs/logo-transparent.png"
-          alt=""
-        />
-        <span class="text-2xl font-bold">Thrifty</span>
+        <svg
+          class="h-8 w-8 text-custom-dark-teal"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          transform="rotate(20)"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <span class="text-2xl font-bold text-green-700 dark:text-gray-300"
+          >Thrifty</span
+        >
       </div>
       <div class="flex space-x-10">
         <!-- primary nav -->
-        <div id="primary-nav" class="hidden md:flex h-7 items-center">
+        <div id="primary-nav" class="hidden md:flex h-7 items-center -mr-32">
           <a
             (click)="onNavLinkClick('/home')"
-            class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
+            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-mint hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
             >Home</a
           >
           <a
             (click)="onNavLinkClick('/about')"
-            class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
+            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-mint hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
             >About</a
           >
           <a
             (click)="onNavLinkClick('/contact')"
-            class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
+            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-mint hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
             >Contact</a
           >
 
           <a
             *ngIf="authService.userLoggedIn"
             (click)="onNavLinkClick('/logout')"
-            class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
+            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-mint hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
             >Logout</a
           >
           <a
             *ngIf="!authService.userLoggedIn"
             (click)="onNavLinkClick('/login')"
-            class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
+            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-mint hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
             >Login</a
           >
           <a
             (click)="onNavLinkClick('/signup')"
-            class="hover:text-gray-700 text-gray-900 transition duration-300 text-lg cursor-pointer py-4 px-3 rounded-md hover:bg-gray-200"
+            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-mint hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
             >Signup</a
           >
         </div>
@@ -56,7 +63,7 @@
       <!-- secondary nav -->
       <div id="secondary-nav" class="hidden md:flex h-7 items-center space-x-4">
         <button
-          class="w-9 h-9 shadow-md bg-gray-100 rounded-lg flex justify-center items-center focus:ring-2 dark:bg-gray-600 dark:text-gray-100"
+          class="w-9 h-9 shadow-md bg-transparent rounded-lg flex justify-center items-center focus:ring-2 dark:bg-gray-900"
           (click)="changeBodyTheme()"
         >
           <!-- Sun svg -->
@@ -67,7 +74,7 @@
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="w-6 h-6 bg-gray-600 text-gray-100"
+              class="w-6 h-6 text-gray-100"
             >
               <path
                 stroke-linecap="round"
@@ -98,7 +105,7 @@
         <button
           id="dropdownDefault"
           data-dropdown-toggle="dropdown"
-          class="text-gray-700 bg-yellow-300 hover:bg-[#FBDF07] focus:ring-2 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
+          class="dark:hover:bg-teal-600 dark:shadow-lg dark:bg-teal-500 dark:text-white bg-transparent shadow-lg text-green-700 focus:ring-2 focus:outline-none dark:focus:ring-gray-800 focus:ring-blue-200 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
           type="button"
         >
           Search by category
@@ -153,34 +160,34 @@
   >
     <a
       (click)="onNavLinkClick('/home')"
-      class="block py-4 px-6 hover:bg-gray-200"
+      class="block py-4 px-6 hover:bg-mint text-green-700 hover:text-green-900 transition duration-300 rounded-md cursor-pointer"
       >Home</a
     >
     <a
       (click)="onNavLinkClick('/about')"
-      class="block py-4 px-6 hover:bg-gray-200"
+      class="block py-4 px-6 hover:bg-mint text-green-700 hover:text-green-900 transition duration-300 rounded-md cursor-pointer"
       >About</a
     >
     <a
       (click)="onNavLinkClick('/contact')"
-      class="block py-4 px-6 hover:bg-gray-200"
+      class="block py-4 px-6 hover:bg-mint text-green-700 hover:text-green-900 transition duration-300 rounded-md cursor-pointer"
       >Contact</a
     >
     <a
       *ngIf="authService.userLoggedIn"
       (click)="onNavLinkClick('/logout')"
-      class="block py-4 px-6 hover:bg-gray-200"
+      class="block py-4 px-6 hover:bg-mint text-green-700 hover:text-green-900 transition duration-300 rounded-md cursor-pointer"
       >Logout</a
     >
     <a
       *ngIf="!authService.userLoggedIn"
       (click)="onNavLinkClick('/login')"
-      class="block py-4 px-6 hover:bg-gray-200"
+      class="block py-4 px-6 hover:bg-mint text-green-700 hover:text-green-900 transition duration-300 rounded-md cursor-pointer"
       >Login</a
     >
     <a
       (click)="onNavLinkClick('/signup')"
-      class="block py-4 px-6 hover:bg-gray-200"
+      class="block py-4 px-6 hover:bg-mint text-green-700 hover:text-green-900 transition duration-300 rounded-md cursor-pointer"
       >Signup</a
     >
   </div>
@@ -189,7 +196,7 @@
 <!-- Dropdown menu -->
 <div
   id="dropdown"
-  class="mt-12 hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow"
+  class="mt-12 hidden z-50 w-44 dark:bg-gray-700 bg-gray-100 rounded divide-y divide-gray-100 shadow-lg"
   style="
     position: absolute;
     inset: 0px auto auto 0px;
@@ -204,7 +211,7 @@
     <li>
       <a
         (click)="onCategoryClick('Computer')"
-        class="block py-2 px-4 hover:bg-gray-100 cursor-pointer"
+        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
         >Computer</a
       >
     </li>
@@ -212,28 +219,28 @@
     <li>
       <a
         (click)="onCategoryClick('Fashion')"
-        class="block py-2 px-4 hover:bg-gray-100 cursor-pointer"
+        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
         >Fashion</a
       >
     </li>
     <li>
       <a
         (click)="onCategoryClick('Sports')"
-        class="block py-2 px-4 hover:bg-gray-100 cursor-pointer"
+        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
         >Sports</a
       >
     </li>
     <li>
       <a
         (click)="onCategoryClick('Home Appliances')"
-        class="block py-2 px-4 hover:bg-gray-100 cursor-pointer"
+        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
         >Home Appliances</a
       >
     </li>
     <li>
       <a
         (click)="onCategoryClick('Health')"
-        class="block py-2 px-4 hover:bg-gray-100 cursor-pointer"
+        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
         >Health</a
       >
     </li>
