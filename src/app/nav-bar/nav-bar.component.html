@@ -192,16 +192,16 @@
       >Signup</a
     >
     <div
-      class="dark:text-gray-300 text-green-700 py-4 px-6 transition duration-300 rounded-md cursor-pointer"
+      class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
     >
       <!-- Dark Mode Button -->
       <div
-        class="dark:text-gray-300 text-green-700 flex flex-row items-center transition duration-300 rounded-md cursor-pointer"
+        class="dark:text-gray-300 text-green-700 flex flex-row items-center"
+        (click)="changeBodyTheme()"
       >
         <span class="mr-5">Dark Mode</span>
         <button
           class="w-9 h-9 shadow-md bg-transparent rounded-lg flex justify-center items-center focus:ring-2 dark:bg-gray-900"
-          (click)="changeBodyTheme()"
         >
           <!-- Sun svg -->
           <div *ngIf="isDarkEnable" [@fadeInOut]>
@@ -220,7 +220,6 @@
               />
             </svg>
           </div>
-
           <!-- Moon svg -->
           <div *ngIf="!isDarkEnable" [@fadeInOut]>
             <svg
@@ -240,30 +239,36 @@
           </div>
         </button>
       </div>
-      <div class="flex flex-wrap mt-10">
+    </div>
+    <!-- Category Links -->
+    <div
+      class="block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
+    >
+      <span class="dark:text-gray-300 text-green-700">Categories</span>
+      <div class="flex flex-wrap mt-5">
         <span
           (click)="onCategoryClick('Computer')"
-          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+          class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 inline-block bg-gray-200 dark:bg-custom-dark-teal rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2"
           >#Computer</span
         >
         <span
           (click)="onCategoryClick('Fashion')"
-          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+          class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 inline-block bg-gray-200 dark:bg-custom-dark-teal rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2"
           >#Fashion</span
         >
         <span
           (click)="onCategoryClick('Sports')"
-          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+          class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 inline-block bg-gray-200 dark:bg-custom-dark-teal rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2"
           >#Sports</span
         >
         <span
           (click)="onCategoryClick('Home_Appliances')"
-          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+          class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 inline-block bg-gray-200 dark:bg-custom-dark-teal rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2"
           >#Home Appliances</span
         >
         <span
           (click)="onCategoryClick('Health')"
-          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+          class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 inline-block bg-gray-200 dark:bg-custom-dark-teal rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2"
           >#Health</span
         >
       </div>

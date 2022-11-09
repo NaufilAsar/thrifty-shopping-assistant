@@ -33,11 +33,19 @@
         class="block text-center rounded-md border-none shadow-md my-5 mx-auto w-full md:w-96 text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95"
       />
       <button
-        class="dark:hover:bg-teal-600 dark:shadow-lg dark:bg-teal-500 dark:text-white bg-green-500 text-white shadow-lg font-poppins font-bold px-3 py-2 rounded-lg mt-5 my-12"
+        class="dark:hover:bg-teal-600 dark:shadow-lg dark:bg-teal-500 dark:text-white bg-green-500 text-white shadow-lg font-poppins font-bold px-3 py-2 rounded-lg my-5"
         type="submit"
       >
         Submit
       </button>
+      <p class="text-green-700 dark:text-gray-300 m-0">
+        By signing up in, you agree to our
+        <a
+          routerLink="/privacy-policy"
+          class="hover:text-green-700 text-green-500 dark:hover:text-gray-300 dark:text-gray-400"
+          >privacy policy</a
+        >.
+      </p>
     </div>
   </form>
   <div *ngIf="showPopUp" class="flex justify-center animated">

@@ -34,6 +34,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { PriceInfoPageComponent } from './price-info-page/price-info-page.component';
 import { ProductComponent } from './product/product.component';
+import { PrivacyPolicyPageComponent } from './privacy-policy-page/privacy-policy-page.component';
 
 export function playerFactory() {
   return import('lottie-web');
@@ -62,6 +63,7 @@ const firebaseConfig = {
     HomePageComponent,
     PriceInfoPageComponent,
     ProductComponent,
+    PrivacyPolicyPageComponent,
   ],
   imports: [
     FontAwesomeModule,

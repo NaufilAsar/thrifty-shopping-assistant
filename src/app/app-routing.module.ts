@@ -8,6 +8,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { LogoutPageComponent } from './logout-page/logout-page.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { PriceInfoPageComponent } from './price-info-page/price-info-page.component';
+import { PrivacyPolicyPageComponent } from './privacy-policy-page/privacy-policy-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
 
 const routes: Routes = [
@@ -46,6 +47,11 @@ const routes: Routes = [
     path: 'price-info',
     component: PriceInfoPageComponent,
     data: { animation: 'Six' },
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyPageComponent,
+    data: { animation: 'Seven' },
   },
   {
     path: '**',
