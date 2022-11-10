@@ -9,6 +9,7 @@ import { LogoutPageComponent } from './logout-page/logout-page.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { PriceInfoPageComponent } from './price-info-page/price-info-page.component';
 import { PrivacyPolicyPageComponent } from './privacy-policy-page/privacy-policy-page.component';
+import { ResultsPageComponent } from './results-page/results-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
 
 const routes: Routes = [
@@ -49,14 +50,19 @@ const routes: Routes = [
     data: { animation: 'Six' },
   },
   {
+    path: 'results',
+    component: ResultsPageComponent,
+    data: { animation: 'Seven' },
+  },
+  {
     path: 'privacy-policy',
     component: PrivacyPolicyPageComponent,
-    data: { animation: 'Seven' },
+    data: { animation: 'Eight' },
   },
   {
     path: '**',
     component: NotFoundPageComponent,
-    data: { animation: 'Seven' },
+    data: { animation: 'Nine' },
   },
 ];
 

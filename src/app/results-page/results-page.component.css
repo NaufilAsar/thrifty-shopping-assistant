@@ -1,0 +1,12 @@
+.my-pagination ::ng-deep .ngx-pagination a,
+.my-pagination ::ng-deep .ngx-pagination .pagination-previous,
+.my-pagination ::ng-deep .ngx-pagination .pagination-next a {
+  font-weight: 700;
+  color: #fff !important;
+  margin: 0 auto;
+}
+.my-pagination ::ng-deep .ngx-pagination a:hover,
+.my-pagination ::ng-deep .ngx-pagination .pagination-previous:hover,
+.my-pagination ::ng-deep .ngx-pagination .pagination-next a:hover {
+  background-color: rgba(52, 58, 64, 0.2);
+}

@@ -26,6 +26,7 @@
     "firebase": "^9.13.0",
     "flowbite": "^1.5.3",
     "ngx-lottie": "^9.1.0",
+    "ngx-pagination": "^6.0.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

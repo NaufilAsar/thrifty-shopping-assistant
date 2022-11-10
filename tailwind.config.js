@@ -22,6 +22,8 @@ module.exports = {
       "soft-green": "rgb(66, 138, 127,0.9)",
       "fresh-lemon": "#ffe26a",
       "light-lime": "#abd699",
+      "transparent-light-teal": "rgb(219,243,235,0.5)",
+      "more-transparent-light-teal": "rgb(219,243,235,0.3)",
       "dark-bootstrap": "#343a40",
       "dark-bootstrap-transparent": "rgba(52, 58, 64, 0.2)",
 

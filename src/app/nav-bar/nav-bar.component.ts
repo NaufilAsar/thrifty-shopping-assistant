@@ -65,7 +65,7 @@ export class NavBarComponent implements OnInit {
     this.hideMobileMenu = true;
   }
   onCategoryClick(categoryName: string) {
-    this.router.navigateByUrl('/home?category=' + categoryName);
+    this.router.navigateByUrl('/results?category=' + categoryName);
   }
 
   changeBodyTheme() {

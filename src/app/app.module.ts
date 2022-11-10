@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// pagination
+import { NgxPaginationModule } from 'ngx-pagination';
+
 //icon
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -35,9 +38,11 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { PriceInfoPageComponent } from './price-info-page/price-info-page.component';
 import { ProductComponent } from './product/product.component';
 import { PrivacyPolicyPageComponent } from './privacy-policy-page/privacy-policy-page.component';
+import { ResultsPageComponent } from './results-page/results-page.component';
 
+import player from 'lottie-web';
 export function playerFactory() {
-  return import('lottie-web');
+  return player;
 }
 
 const firebaseConfig = {
@@ -64,6 +69,7 @@ const firebaseConfig = {
     PriceInfoPageComponent,
     ProductComponent,
     PrivacyPolicyPageComponent,
+    ResultsPageComponent,
   ],
   imports: [
     FontAwesomeModule,
@@ -71,6 +77,7 @@ const firebaseConfig = {
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
+    NgxPaginationModule,
     BrowserAnimationsModule,
     HttpClientModule,
     LottieModule.forRoot({ player: playerFactory }),

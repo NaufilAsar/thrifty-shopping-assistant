@@ -6,7 +6,7 @@
       <!-- logo -->
       <div id="logo" class="flex space-x-2 items-center">
         <svg
-          class="h-8 w-8 text-custom-dark-teal"
+          class="h-8 w-8 text-custom-dark-teal dark:text-teal-500"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
@@ -161,38 +161,38 @@
   >
     <a
       (click)="onNavLinkClick('/home')"
-      class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
+      class="dark:text-gray-300 hover:bg-custom-light-teal dark:hover:bg-gray-800 hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
       >Home</a
     >
     <a
       (click)="onNavLinkClick('/about')"
-      class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
+      class="dark:text-gray-300 hover:bg-custom-light-teal dark:hover:bg-gray-800 hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
       >About</a
     >
     <a
       (click)="onNavLinkClick('/contact')"
-      class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
+      class="dark:text-gray-300 hover:bg-custom-light-teal dark:hover:bg-gray-800 hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
       >Contact</a
     >
     <a
       *ngIf="authService.userLoggedIn"
       (click)="onNavLinkClick('/logout')"
-      class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
+      class="dark:text-gray-300 hover:bg-custom-light-teal dark:hover:bg-gray-800 hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
       >Logout</a
     >
     <a
       *ngIf="!authService.userLoggedIn"
       (click)="onNavLinkClick('/login')"
-      class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
+      class="dark:text-gray-300 hover:bg-custom-light-teal dark:hover:bg-gray-800 hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
       >Login</a
     >
     <a
       (click)="onNavLinkClick('/signup')"
-      class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
+      class="dark:text-gray-300 hover:bg-custom-light-teal dark:hover:bg-gray-800 hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
       >Signup</a
     >
     <div
-      class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
+      class="dark:text-gray-300 hover:bg-custom-light-teal dark:hover:bg-gray-800 hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
     >
       <!-- Dark Mode Button -->
       <div
@@ -241,36 +241,39 @@
       </div>
     </div>
     <!-- Category Links -->
-    <div
-      class="block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
-    >
+    <div class="block py-4 px-6 rounded-md cursor-pointer">
       <span class="dark:text-gray-300 text-green-700">Categories</span>
       <div class="flex flex-wrap mt-5">
-        <span
+        <p
           (click)="onCategoryClick('Computer')"
           class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 inline-block bg-gray-200 dark:bg-custom-dark-teal rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2"
-          >#Computer</span
         >
-        <span
+          #Computer
+        </p>
+        <p
           (click)="onCategoryClick('Fashion')"
           class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 inline-block bg-gray-200 dark:bg-custom-dark-teal rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2"
-          >#Fashion</span
         >
-        <span
+          #Fashion
+        </p>
+        <p
           (click)="onCategoryClick('Sports')"
           class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 inline-block bg-gray-200 dark:bg-custom-dark-teal rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2"
-          >#Sports</span
         >
-        <span
+          #Sports
+        </p>
+        <p
           (click)="onCategoryClick('Home_Appliances')"
           class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 inline-block bg-gray-200 dark:bg-custom-dark-teal rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2"
-          >#Home Appliances</span
         >
-        <span
+          #Home Appliances
+        </p>
+        <p
           (click)="onCategoryClick('Health')"
           class="dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 inline-block bg-gray-200 dark:bg-custom-dark-teal rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2"
-          >#Health</span
         >
+          #Health
+        </p>
       </div>
     </div>
   </div>

@@ -28,7 +28,7 @@
     <input
       id="search_box"
       type="text"
-      [formControl]="search_product"
+      [formControl]="search_bar"
       placeholder="Search.."
       class="block text-center rounded-md border-none shadow-md my-5 mx-auto w-full text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95"
     />
@@ -42,78 +42,65 @@
     </button>
   </form>
 
-  <!-- Loading Animation -->
-  <div *ngIf="displayLoadingAnimation" style="margin: 50px 0">
-    <!-- display loading animation -->
-    <ng-lottie
-      id="loading"
-      height="100px"
-      [options]="{ path: 'assets/anim/loading.json' }"
-    ></ng-lottie>
-  </div>
-
   <!-- Ad Section -->
-  <div class="animations" [hidden]="hideSectionAnimations">
-    <h3 class="text-3xl px-sm-2 text-center font-poppins">
-      We are thrifty because
-    </h3>
-    <div class="d-flex justify-content-center m-5">
-      <blockquote class="blockquote card p-4" style="display: inline-block">
-        <p style="font-family: Arial, Helvetica, sans-serif">
+  <div
+    class="animations text-green-700 dark:text-gray-300"
+    [hidden]="hideSectionAnimations"
+  >
+    <!-- Meaning -->
+    <div class="mx-3">
+      <h3 class="text-3xl mt-10 font-bold text-center font-poppins">
+        We are thrifty because
+      </h3>
+      <div
+        class="flex justify-center flex-col my-5 mx-auto rounded-md bg-gray-200 w-fit text-green-700 dark:text-green-900"
+      >
+        <p
+          style="font-family: Arial, Helvetica, sans-serif"
+          class="my-3 text-lg mx-5"
+        >
           thrifty means showing a careful use of money, especially by avoiding
           waste
         </p>
-        <footer class="blockquote-footer">
-          <cite title="Source Title">Cambridge Dictionary</cite>
-        </footer>
-      </blockquote>
-    </div>
-    <div class="section text-center" style="margin-top: 80px">
-      <h3 class="text-2xl px-sm-2 font-poppins">
-        We make your task to search hundreds of websites for the best price
-        <span class="underlined">simple.</span>
-      </h3>
-      <ng-lottie
-        height="300px"
-        [options]="{ path: 'assets/anim/thinking-ad.json' }"
-      ></ng-lottie>
+        <p class="ml-5 mb-3">~Cambridge Dictionary</p>
+      </div>
     </div>
 
-    <div class="section text-center" style="margin-top: 70px">
-      <h3 class="text-2xl px-sm-2 font-poppins">
-        <span class="underlined">Track</span> Price With Historical Price Chart
-      </h3>
-      <ng-lottie
-        height="300px"
-        [options]="{ path: 'assets/anim/price-down.json' }"
-      ></ng-lottie>
-    </div>
+    <!-- Animations -->
 
-    <div class="section text-center" style="margin: 70px 0">
-      <h3 class="text-2xl px-sm-2 font-poppins">
-        All of that for <span class="underlined">free.</span> Without your data
-        being compromised.
-      </h3>
-      <ng-lottie
-        height="300px"
-        [options]="{ path: 'assets/anim/free-box.json' }"
-      ></ng-lottie>
-    </div>
-  </div>
+    <div class="flex flex-col items-center">
+      <div class="bg-transparent rounded-lg p-3 md:w-8/12 mx-3 my-10">
+        <p class="text-2xl font-poppins font-bold my-5 text-center">
+          We make your task to search hundreds of websites for the best price
+          <span class="underline">simple.</span>
+        </p>
+        <ng-lottie
+          height="300px"
+          [options]="{ path: 'assets/anim/thinking-ad.json' }"
+        ></ng-lottie>
+      </div>
 
-  <!-- Error Section -->
-  <div
-    *ngIf="gotError"
-    class="section text-center"
-    style="margin-top: 50px; margin-bottom: 100px"
-  >
-    <ng-lottie
-      height="300px"
-      [options]="{ path: 'assets/anim/api-error.json' }"
-    ></ng-lottie>
-    <h1 class="text-2xl px-sm-2 font-poppins">Aw, Snap!</h1>
-    <p class="text-3xl px-sm-2 h4 font-poppins">
-      Looks like something went wrong on our side..
-    </p>
+      <div class="bg-transparent rounded-lg p-3 md:w-8/12 mx-3 my-10">
+        <p class="text-2xl font-poppins font-bold my-5 text-center">
+          <span class="underlined">Track</span> Price With Historical Price
+          Chart
+        </p>
+        <ng-lottie
+          height="300px"
+          [options]="{ path: 'assets/anim/price-down.json' }"
+        ></ng-lottie>
+      </div>
+
+      <div class="bg-transparent rounded-lg p-3 md:w-8/12 mx-3 my-10">
+        <p class="text-2xl font-poppins font-bold my-5 text-center">
+          All of that for <span class="underlined">free.</span> Without your
+          data being compromised.
+        </p>
+        <ng-lottie
+          height="300px"
+          [options]="{ path: 'assets/anim/free-box.json' }"
+        ></ng-lottie>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,0 +1,121 @@
+<!-- Loading Animation -->
+<div [ngStyle]="{ display: displayLoadingStyle }" class="my-20">
+  <!-- display loading animation -->
+  <ng-lottie
+    id="loading"
+    height="50px"
+    [options]="{ path: 'assets/anim/loading.json' }"
+  ></ng-lottie>
+</div>
+
+<!-- Error Section -->
+<div
+  *ngIf="gotError"
+  class="text-center"
+  style="margin-top: 50px; margin-bottom: 100px"
+>
+  <ng-lottie
+    height="300px"
+    [options]="{ path: 'assets/anim/api-error.json' }"
+  ></ng-lottie>
+  <h1 class="text-3xl font-poppins">Aw, Snap!</h1>
+  <p class="text-2xl my-5 font-poppins">
+    {{ errorMessage }}
+  </p>
+</div>
+
+<!-- Results -->
+<div
+  id="result-container"
+  [ngStyle]="{ display: displayResultsStyle }"
+  class=""
+>
+  <div class="flex flex-wrap gap-5 my-10 justify-center">
+    <div
+      *ngFor="
+        let product of results
+          | paginate: { itemsPerPage: 30, currentPage: pageNumber };
+        let i = index
+      "
+      class="hover:scale-105 hover:shadow-xl hover:bg-more-transparent-light-teal dark:hover:bg-dark-bootstrap-transparent hover:rounded-lg"
+    >
+      <div
+        class="w-80 max-w-sm flex flex-col relative bg-transparent-light-teal rounded-lg shadow-md dark:bg-dark-bootstrap-transparent dark:border-gray-700"
+        style="height: 24.5rem"
+      >
+        <a routerLink="/price-info">
+          <div>
+            <img
+              class="p-4 mx-auto my-auto"
+              style="
+                border-radius: 13%;
+                object-position: center center;
+                max-width: 200px;
+                max-height: 250px;
+                width: auto;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+              "
+              src="{{ product.href }}"
+              alt="product image"
+            />
+          </div>
+          <div class="px-5 pb-5 mt-auto">
+            <div>
+              <h5
+                class="text-lg h-14 font-semibold dark:font-normal tracking-tight text-custom-dark-teal dark:text-gray-300 overflow-hidden my-3"
+              >
+                {{ product.title }}
+              </h5>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <span
+                class="text-2xl font-bold text-green-500 dark:text-gray-300 flex flex-row justify-center items-center"
+              >
+                <span class="mr-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-8 h-8 text-green-500 dark:text-green-500"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </span>
+                {{ product.price }}</span
+              >
+              <div
+                [ngClass]="{
+                  'bg-[#FFC107]': product.site == 'amazon',
+                  'bg-[#1976D2]': product.site == 'flipkart',
+                  'bg-[#4CAF50]': product.site == 'reliance',
+                  'bg-orange-500': product.site == 'shopclues'
+                }"
+                class="text-white font-semibold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-3 py-2 text-center dark:focus:ring-blue-800"
+              >
+                {{ product.site }}
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-center my-12">
+    <pagination-controls
+      [autoHide]="true"
+      class="my-pagination"
+      [maxSize]="10"
+      (pageChange)="pageNumber = $event"
+    ></pagination-controls>
+  </div>
+</div>
