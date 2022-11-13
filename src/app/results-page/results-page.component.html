@@ -235,56 +235,58 @@
   >
     <li>
       <a
-        (click)="filterResults('')"
+        (click)="filterResults({ byPriceLowToHigh: true })"
         class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
       >
         <div class="flex justify-between items-center">
           <p class="inline-block">Price: Low to High</p>
-          <input type="checkbox" />
+          <input id="low_to_high_filter" type="checkbox" />
         </div>
       </a>
     </li>
 
     <li>
       <a
-        (click)="filterResults('')"
+        (click)="filterResults({ byPriceHighToLow: true })"
         class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
       >
         <div class="flex justify-between items-center">
           <p class="inline-block">Price: High to Low</p>
-          <input type="checkbox" />
+          <input id="high_to_low_filter" type="checkbox" />
         </div>
       </a>
     </li>
     <li>
       <a
-        (click)="filterResults('')"
+        (click)="filterResults({ byMinimumPrice: true, price: minPrice.value })"
         class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
       >
         <div class="flex justify-between items-center">
           <p class="inline-block">Minimum price</p>
           <input
+            #minPrice
             type="number"
             placeholder="₹"
             class="w-20 h-5 p-2.5 rounded-md"
           />
-          <input type="checkbox" />
+          <input id="min_filter" type="checkbox" />
         </div>
       </a>
     </li>
     <li>
       <a
-        (click)="filterResults('')"
+        (click)="filterResults({ byMaximumPrice: true, price: maxPrice.value })"
         class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
       >
         <div class="flex justify-between items-center">
           <p class="inline-block">Maximum price</p>
           <input
+            #maxPrice
             type="number"
             placeholder="₹"
             class="w-20 h-5 p-2.5 rounded-md"
           />
-          <input type="checkbox" />
+          <input id="max_filter" type="checkbox" />
         </div>
       </a>
     </li>
@@ -294,7 +296,7 @@
       Brand
       <li>
         <a
-          (click)="filterResults('Amazon')"
+          (click)="filterByBrand({ byAmazon: true })"
           class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
         >
           <div class="flex justify-between items-center">
@@ -305,34 +307,34 @@
       </li>
       <li>
         <a
-          (click)="filterResults('Flipkart')"
+          (click)="filterByBrand({ byFlipkart: true })"
           class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
         >
           <div class="flex justify-between items-center">
             <p class="inline-block">Flipkart</p>
-            <input type="checkbox" />
+            <input id="flipkat_filter" type="checkbox" />
           </div>
         </a>
       </li>
       <li>
         <a
-          (click)="filterResults('ShopClues')"
+          (click)="filterByBrand({ byShopClues: true })"
           class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
         >
           <div class="flex justify-between items-center">
             <p class="inline-block">ShopClues</p>
-            <input type="checkbox" />
+            <input id="shopclues_filter" type="checkbox" />
           </div>
         </a>
       </li>
       <li>
         <a
-          (click)="filterResults('Reliance')"
+          (click)="filterByBrand({ byReliance: true })"
           class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
         >
           <div class="flex justify-between items-center">
             <p class="inline-block">Reliance</p>
-            <input type="checkbox" />
+            <input id="reliance_filter" type="checkbox" />
           </div>
         </a>
       </li>

@@ -89,6 +89,20 @@ export class ResultsPageComponent implements OnInit {
     return res;
   }
 
+  shuffleArrayOfProducts(array: any) {
+    var m = array.length,
+      t,
+      i;
+    while (m) {
+      i = Math.floor(Math.random() * m--);
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+
+    return array;
+  }
+
   onProductClick(data: any) {
     localStorage.setItem('product', JSON.stringify(data));
   }
@@ -163,33 +177,10 @@ export class ResultsPageComponent implements OnInit {
       let url = this.apiUrl + categoryArray[i];
       this.api.getProducts(url).subscribe({
         next: (products: any) => {
-          // let temp: any = [];
-          // temp = products as Array<any>;
-          // temp = temp.flat();
-          // this.results.push(temp.flat(5));
-          // this.results.push(products.flat() as Array<any>);
-
           Object.entries(products).forEach(([k, v]) => {
             this.results.push(v);
             this.results = this.results.flat();
           });
-
-          // this.results.push(products);
-          // this.results = this.results.flat();
-          // this.results = this.results.filter((x: any) => {
-          //   return (
-          //     x.href != undefined &&
-          //     x.title != undefined &&
-          //     x.site != undefined &&
-          //     x.price != undefined &&
-          //     x.link != undefined &&
-          //     x.href != null &&
-          //     x.title != null &&
-          //     x.site != null &&
-          //     x.price != null &&
-          //     x.link != null
-          //   );
-          // });
           this.results = this.shuffleArray(this.results);
         },
         error: (error) => {
@@ -206,19 +197,129 @@ export class ResultsPageComponent implements OnInit {
   }
 
   // filter products
-  filterResults(filter: string) {
-    const checkbox = <HTMLInputElement>document.getElementById('amazon_filter');
-    checkbox.checked = !checkbox.checked;
-    if (filter === 'Amazon') {
-      let temp: Array<any> = [];
-      this.results = this.results.flat();
-      temp = this.results;
-      temp.filter((p) => {
-        return p.site === 'Amazon';
-      });
-      this.results = temp;
+  filterResults({
+    byPriceLowToHigh,
+    byPriceHighToLow,
+    byMinimumPrice,
+    byMaximumPrice,
+    price,
+  }: iFilter) {
+    if (byPriceLowToHigh) {
+      const checkbox = <HTMLInputElement>(
+        document.getElementById('low_to_high_filter')
+      );
+      checkbox.checked = !checkbox.checked;
+      if (checkbox.checked) {
+        this.results = this.results.sort((a: any, b: any) =>
+          this.compare(a, b)
+        );
+      } else this.results = this.shuffleArrayOfProducts(this.results);
+    }
+    if (byPriceHighToLow) {
+      const checkbox = <HTMLInputElement>(
+        document.getElementById('high_to_low_filter')
+      );
+      checkbox.checked = !checkbox.checked;
+      if (checkbox.checked) {
+        this.results = this.results.sort((a: any, b: any) =>
+          this.compare(b, a)
+        );
+      } else this.results = this.shuffleArrayOfProducts(this.results);
+    }
+    if (byMinimumPrice) {
+      const checkbox = <HTMLInputElement>document.getElementById('min_filter');
+      checkbox.checked = !checkbox.checked;
+      if (checkbox.checked) {
+        if (Number(price) > 0) {
+          this.results = this.results.filter((x: any) => {
+            let a = parseFloat(x.price);
+            let b = Number(price);
+            return a < b;
+          });
+        } else {
+          this.showPopUp = true;
+          this.message = 'Invalid price';
+        }
+      } else this.results = this.sharingService.getproductArray();
+    }
+  }
+
+  compare(a: any, b: any) {
+    a = parseFloat(a.price.replace(',', ''));
+    b = parseFloat(b.price.replace(',', ''));
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+    return 0;
+  }
+
+  // filter by product brand
+  filterByBrand({
+    byAmazon,
+    byFlipkart,
+    byReliance,
+    byShopClues,
+  }: iFilterByBrand) {
+    if (byAmazon) {
+      const checkbox = <HTMLInputElement>(
+        document.getElementById('amazon_filter')
+      );
+      checkbox.checked = !checkbox.checked;
+      if (checkbox.checked) {
+        this.results = this.results.filter((x: any) => {
+          return x.site === 'Amazon';
+        });
+      } else this.results = this.sharingService.getproductArray();
+    }
+    if (byReliance) {
+      const checkbox = <HTMLInputElement>(
+        document.getElementById('reliance_filter')
+      );
+      checkbox.checked = !checkbox.checked;
+      if (checkbox.checked) {
+        this.results = this.results.filter((x: any) => {
+          return x.site === 'Reliance';
+        });
+      } else this.results = this.sharingService.getproductArray();
+    }
+    if (byFlipkart) {
+      const checkbox = <HTMLInputElement>(
+        document.getElementById('flipkat_filter')
+      );
+      checkbox.checked = !checkbox.checked;
+      if (checkbox.checked) {
+        this.results = this.results.filter((x: any) => {
+          return x.site === 'Flipkart';
+        });
+      } else this.results = this.sharingService.getproductArray();
+    }
+    if (byShopClues) {
+      const checkbox = <HTMLInputElement>(
+        document.getElementById('shopclues_filter')
+      );
+      checkbox.checked = !checkbox.checked;
+      if (checkbox.checked) {
+        this.results = this.results.filter((x: any) => {
+          return x.site === 'ShopClues';
+        });
+      } else this.results = this.sharingService.getproductArray();
     }
   }
 }
 
-interface Product {}
+interface iFilterByBrand {
+  byAmazon?: boolean;
+  byFlipkart?: boolean;
+  byShopClues?: boolean;
+  byReliance?: boolean;
+}
+interface iFilter {
+  byPriceLowToHigh?: boolean;
+  byPriceHighToLow?: boolean;
+  byMinimumPrice?: boolean;
+  byMaximumPrice?: boolean;
+  price?: string;
+}
