@@ -25,6 +25,8 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "chart.js": "^3.9.1",
     "firebase": "^9.13.0",
+    "firebase-admin": "^11.2.1",
+    "firebase-functions": "^4.0.2",
     "flowbite": "^1.5.3",
     "ng2-charts": "^4.0.1",
     "ngx-lottie": "^9.1.0",
