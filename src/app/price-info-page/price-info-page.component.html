@@ -1,1 +1,58 @@
-<p>price-info-page works!</p>
+<div class="flex items-center justify-center flex-col p-10">
+  <div
+    class="text-custom-dark-teal dark:text-gray-300 m-10 glass-drop-effect rounded-lg dark:border-gray-700 dark:bg-dark-bootstrap-transparent w-full md:w-9/12 lg:w-7/12 p-3 md:p-10"
+  >
+    <p class="my-2 text-xl">Price History of</p>
+    <h3 class="text-2xl mt-5 font-semibold text-center">
+      <!-- Capitalize First Letter -->
+      {{ product.title.charAt(0).toUpperCase() + product.title.slice(1) }}
+    </h3>
+
+    <img
+      loading="lazy"
+      style="
+        margin: 2.5rem auto;
+        max-width: 400px;
+        max-height: 450px;
+        width: auto;
+        height: auto;
+        border-radius: 13%;
+      "
+      src="{{ product.href }}"
+      alt="{{ product.title }}"
+    />
+
+    <div class="price-info text-center text-lg">
+      <p>
+        Current Price* <span class="font-semibold">{{ product.price }}</span>
+      </p>
+      <p *ngIf="this.product.mrp != this.product.price">
+        Current MRP*
+        <s
+          *ngIf="this.product.mrp != this.product.price; else oth"
+          class="font-semibold"
+        >
+          {{ product.mrp }}
+        </s>
+        <ng-template #oth>{{ product.mrp }}</ng-template>
+      </p>
+      <p class="my-6">*Last updated a few minutes ago</p>
+    </div>
+  </div>
+  <div
+    class="text-custom-dark-teal dark:text-gray-300 m-10 glass-drop-effect rounded-lg dark:border-gray-700 dark:bg-dark-bootstrap-transparent w-full md:w-9/12 lg:w-7/12 p-3 md:p-10 lg:p-28"
+  >
+    <div class="my-4">
+      <canvas
+        baseChart
+        width="500"
+        height="400"
+        [type]="'line'"
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend"
+      >
+      </canvas>
+    </div>
+  </div>
+</div>

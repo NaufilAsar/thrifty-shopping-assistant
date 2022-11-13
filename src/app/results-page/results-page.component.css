@@ -1,12 +1,18 @@
 .my-pagination ::ng-deep .ngx-pagination a,
 .my-pagination ::ng-deep .ngx-pagination .pagination-previous,
 .my-pagination ::ng-deep .ngx-pagination .pagination-next a {
+  font-family: "Ubuntu";
   font-weight: 700;
   color: #fff !important;
   margin: 0 auto;
+  padding: 5px 8px;
 }
 .my-pagination ::ng-deep .ngx-pagination a:hover,
 .my-pagination ::ng-deep .ngx-pagination .pagination-previous:hover,
 .my-pagination ::ng-deep .ngx-pagination .pagination-next a:hover {
+  background-color: rgba(52, 58, 64, 0.2);
+}
+
+.my-pagination ::ng-deep .ngx-pagination .current {
   background-color: rgba(52, 58, 64, 0.2);
 }

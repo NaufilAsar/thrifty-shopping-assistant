@@ -1,5 +1,5 @@
 <!-- Loading Animation -->
-<div [ngStyle]="{ display: displayLoadingStyle }" class="my-20">
+<div class="my-20 h-96" [hidden]="!hideResults">
   <!-- display loading animation -->
   <ng-lottie
     id="loading"
@@ -10,8 +10,8 @@
 
 <!-- Error Section -->
 <div
-  *ngIf="gotError"
-  class="text-center"
+  [hidden]="!gotError"
+  class="text-center text-custom-dark-teal dark:text-gray-300 font-semibold"
   style="margin-top: 50px; margin-bottom: 100px"
 >
   <ng-lottie
@@ -24,55 +24,139 @@
   </p>
 </div>
 
-<!-- Results -->
-<div
-  id="result-container"
-  [ngStyle]="{ display: displayResultsStyle }"
-  class=""
->
-  <div class="flex flex-wrap gap-5 my-10 justify-center">
-    <div
-      *ngFor="
-        let product of results
-          | paginate: { itemsPerPage: 30, currentPage: pageNumber };
-        let i = index
-      "
-      class="hover:scale-105 hover:shadow-xl hover:bg-more-transparent-light-teal dark:hover:bg-dark-bootstrap-transparent hover:rounded-lg"
+<div [hidden]="hideResults" id="result-container">
+  <form
+    class="flex justify-center items-center my-10 mx-8 md:mx-auto md:w-7/12 gap-2"
+  >
+    <input
+      type="text"
+      [formControl]="search_bar"
+      placeholder="Search something else.."
+      class="block m text-center rounded-md border-none shadow-md my-5 mx-auto w-full text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95"
+    />
+    <button
+      id="search_btn"
+      type="button"
+      (click)="onClickSearch()"
+      class="w-10 h-10 bg-soft-green dark:bg-teal-500 text-gray-200 rounded-md shadow-md"
     >
-      <div
-        class="w-80 max-w-sm flex flex-col relative bg-transparent-light-teal rounded-lg shadow-md dark:bg-dark-bootstrap-transparent dark:border-gray-700"
-        style="height: 24.5rem"
+      <fa-icon [icon]="search_icon"></fa-icon>
+    </button>
+  </form>
+
+  <!-- Results -->
+  <div class="">
+    <div
+      *ngIf="showFilters"
+      class="text-custom-dark-teal dark:text-gray-300 font-ubuntu font-bold text-xl md:text-2xl flex justify-between my-10 mx-9 md:mx-auto md:w-7/12"
+    >
+      Showing {{ results.length }} results for {{ this.productName }}
+      <button
+        id="dropdownFilterDefault"
+        data-dropdown-toggle="dropdownFilter"
+        class="bg-transparent font-bold font-ubuntu text-green-700 dark:bg-teal-500 dark:shadow-lg dark:text-white shadow-lg focus:ring-2 focus:outline-none dark:focus:ring-teal-700 focus:ring-custom-dark-teal rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
+        type="button"
+        style="height: 2.3rem"
       >
-        <a routerLink="/price-info">
-          <div>
-            <img
-              class="p-4 mx-auto my-auto"
-              style="
-                border-radius: 13%;
-                object-position: center center;
-                max-width: 200px;
-                max-height: 250px;
-                width: auto;
-                height: auto;
-                display: block;
-                margin: 0 auto;
-              "
-              src="{{ product.href }}"
-              alt="product image"
-            />
-          </div>
-          <div class="px-5 pb-5 mt-auto">
+        Filters
+        <svg
+          class="ml-2 w-4 h-4"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 9l-7 7-7-7"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <div *ngIf="showPopUp" class="flex justify-center animated">
+      <div
+        id="toast-simple"
+        class="opacity-60 dark:opacity-100 flex items-center p-4 space-x-4 bg-white rounded-lg shadow-lg dark:bg-dark-bootstrap dark:text-white"
+        role="alert"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 text-green-400"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+          />
+        </svg>
+
+        <p class="pl-1 text-sm font-normal">
+          {{ message }}
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-wrap gap-5 my-10 justify-center">
+      <div
+        *ngFor="
+          let product of results
+            | paginate: { itemsPerPage: 30, currentPage: pageNumber };
+          let i = index
+        "
+        id="{{ i }}"
+        class="hover:scale-105 hover:shadow-xl hover:bg-more-transparent-light-teal dark:hover:bg-dark-bootstrap-transparent hover:rounded-lg"
+      >
+        <div
+          id="now"
+          class="w-80 max-w-sm flex flex-col relative bg-transparent-light-teal rounded-lg shadow-md dark:bg-dark-bootstrap-transparent dark:border-gray-700"
+          style="
+            height: 24.5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+          "
+        >
+          <a
+            routerLink="/price-info"
+            class="w-full flex flex-col justify-between items-stretch"
+            (click)="onProductClick(product)"
+          >
             <div>
+              <img
+                class="p-5 mx-auto my-auto"
+                loading="lazy"
+                style="
+                  border-radius: 12%;
+                  object-position: center center;
+                  max-width: 280px;
+                  width: auto;
+                  height: 230px;
+                  display: block;
+                  margin: auto auto;
+                "
+                src="{{ product.href }}"
+                alt="product image"
+              />
+            </div>
+            <!-- <div > -->
+            <div class="px-5 pb-5 mt-auto">
               <h5
-                class="text-lg h-14 font-semibold dark:font-normal tracking-tight text-custom-dark-teal dark:text-gray-300 overflow-hidden my-3"
+                class="text-lg font-ubuntu max-h-14 font-semibold dark:font-normal tracking-tight text-custom-dark-teal dark:text-gray-300 overflow-hidden my-3"
               >
                 {{ product.title }}
               </h5>
             </div>
 
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center px-5 pb-5 mt-auto">
               <span
                 class="text-2xl font-bold text-green-500 dark:text-gray-300 flex flex-row justify-center items-center"
+                style="font-family: Poppins"
               >
                 <span class="mr-1">
                   <svg
@@ -90,32 +174,168 @@
                     />
                   </svg>
                 </span>
-                {{ product.price }}</span
-              >
-              <div
+                {{ product.price }}
+
+                <span
+                  *ngIf="product.price != product.mrp"
+                  class="text-base text-red-600 dark:text-red-400 -mb-1 ml-2"
+                >
+                  <s>
+                    {{ product.mrp }}
+                  </s>
+                </span>
+              </span>
+              <button
+                routerLink="{{ product.link }}"
                 [ngClass]="{
-                  'bg-[#FFC107]': product.site == 'amazon',
-                  'bg-[#1976D2]': product.site == 'flipkart',
-                  'bg-[#4CAF50]': product.site == 'reliance',
-                  'bg-orange-500': product.site == 'shopclues'
+                  'bg-[#FFC107]': product.site == 'Amazon',
+                  'bg-[#1976D2]': product.site == 'Flipkart',
+                  'bg-[#4CAF50]': product.site == 'Reliance',
+                  'bg-orange-500': product.site == 'ShopClues'
                 }"
-                class="text-white font-semibold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-3 py-2 text-center dark:focus:ring-blue-800"
+                class="text-white font-ubuntu font-semibold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-3 py-2 text-center dark:focus:ring-blue-800"
               >
                 {{ product.site }}
-              </div>
+              </button>
             </div>
-          </div>
-        </a>
+            <!-- </div> -->
+          </a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="flex justify-center my-12">
-    <pagination-controls
-      [autoHide]="true"
-      class="my-pagination"
-      [maxSize]="10"
-      (pageChange)="pageNumber = $event"
-    ></pagination-controls>
+    <div class="flex justify-center my-12">
+      <pagination-controls
+        [autoHide]="true"
+        class="my-pagination"
+        [maxSize]="10"
+        (pageChange)="pageNumber = $event"
+      ></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<!-- Dropdown menu -->
+<div
+  id="dropdownFilter"
+  class="mt-12 hidden z-50 w-60 dark:bg-gray-700 bg-gray-100 rounded divide-y divide-gray-100 shadow-lg"
+  style="
+    position: absolute;
+    inset: 0px auto auto 0px;
+    margin: 0px;
+    transform: translate3d(0px, 476px, 0px);
+  "
+  data-popper-reference-hidden=""
+  data-popper-escaped=""
+  data-popper-placement="bottom"
+>
+  <ul
+    class="py-1 text-sm text-gray-700"
+    aria-labelledby="dropdownFilterDefault"
+  >
+    <li>
+      <a
+        (click)="filterResults('')"
+        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+      >
+        <div class="flex justify-between items-center">
+          <p class="inline-block">Price: Low to High</p>
+          <input type="checkbox" />
+        </div>
+      </a>
+    </li>
+
+    <li>
+      <a
+        (click)="filterResults('')"
+        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+      >
+        <div class="flex justify-between items-center">
+          <p class="inline-block">Price: High to Low</p>
+          <input type="checkbox" />
+        </div>
+      </a>
+    </li>
+    <li>
+      <a
+        (click)="filterResults('')"
+        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+      >
+        <div class="flex justify-between items-center">
+          <p class="inline-block">Minimum price</p>
+          <input
+            type="number"
+            placeholder="₹"
+            class="w-20 h-5 p-2.5 rounded-md"
+          />
+          <input type="checkbox" />
+        </div>
+      </a>
+    </li>
+    <li>
+      <a
+        (click)="filterResults('')"
+        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+      >
+        <div class="flex justify-between items-center">
+          <p class="inline-block">Maximum price</p>
+          <input
+            type="number"
+            placeholder="₹"
+            class="w-20 h-5 p-2.5 rounded-md"
+          />
+          <input type="checkbox" />
+        </div>
+      </a>
+    </li>
+  </ul>
+  <div class="block py-2 px-4 text-green-700 dark:text-gray-300">
+    <ul>
+      Brand
+      <li>
+        <a
+          (click)="filterResults('Amazon')"
+          class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+        >
+          <div class="flex justify-between items-center">
+            <p class="inline-block">Amazon</p>
+            <input id="amazon_filter" type="checkbox" />
+          </div>
+        </a>
+      </li>
+      <li>
+        <a
+          (click)="filterResults('Flipkart')"
+          class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+        >
+          <div class="flex justify-between items-center">
+            <p class="inline-block">Flipkart</p>
+            <input type="checkbox" />
+          </div>
+        </a>
+      </li>
+      <li>
+        <a
+          (click)="filterResults('ShopClues')"
+          class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+        >
+          <div class="flex justify-between items-center">
+            <p class="inline-block">ShopClues</p>
+            <input type="checkbox" />
+          </div>
+        </a>
+      </li>
+      <li>
+        <a
+          (click)="filterResults('Reliance')"
+          class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+        >
+          <div class="flex justify-between items-center">
+            <p class="inline-block">Reliance</p>
+            <input type="checkbox" />
+          </div>
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
