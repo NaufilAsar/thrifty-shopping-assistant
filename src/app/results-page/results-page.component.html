@@ -1,12 +1,6 @@
 <!-- Loading Animation -->
-<div class="my-20 h-96" [hidden]="!hideResults">
-  <!-- display loading animation -->
-  <ng-lottie
-    id="loading"
-    height="50px"
-    [options]="{ path: 'assets/anim/loading.json' }"
-  ></ng-lottie>
-</div>
+<!-- *ngIf="isLoading" -->
+<app-loading *ngIf="isLoading"></app-loading>
 
 <!-- Error Section -->
 <div
@@ -24,7 +18,7 @@
   </p>
 </div>
 
-<div [hidden]="hideResults" id="result-container">
+<div *ngIf="!isLoading" id="result-container" [hidden]="gotError">
   <form
     class="flex justify-center items-center my-10 mx-8 md:mx-auto md:w-7/12 gap-2"
   >
@@ -47,11 +41,11 @@
   <!-- Results -->
   <div class="">
     <div
-      *ngIf="showFilters"
       class="text-custom-dark-teal dark:text-gray-300 font-ubuntu font-bold text-xl md:text-2xl flex justify-between my-10 mx-9 md:mx-auto md:w-7/12"
     >
       Showing {{ results.length }} results for {{ this.productName }}
       <button
+        *ngIf="showFilters"
         id="dropdownFilterDefault"
         data-dropdown-toggle="dropdownFilter"
         class="bg-transparent font-bold font-ubuntu text-green-700 dark:bg-teal-500 dark:shadow-lg dark:text-white shadow-lg focus:ring-2 focus:outline-none dark:focus:ring-teal-700 focus:ring-custom-dark-teal rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
@@ -233,6 +227,17 @@
     class="py-1 text-sm text-gray-700"
     aria-labelledby="dropdownFilterDefault"
   >
+    <li *ngIf="resetFilters">
+      <a
+        (click)="reloadPage()"
+        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+      >
+        <div class="flex justify-between items-center">
+          <p class="inline-block">Reset Filters</p>
+        </div>
+      </a>
+    </li>
+
     <li>
       <a
         (click)="filterResults({ byPriceLowToHigh: true })"
@@ -240,7 +245,7 @@
       >
         <div class="flex justify-between items-center">
           <p class="inline-block">Price: Low to High</p>
-          <input id="low_to_high_filter" type="checkbox" />
+          <input id="low_to_high_filter" type="checkbox" name="filter" />
         </div>
       </a>
     </li>
@@ -252,13 +257,12 @@
       >
         <div class="flex justify-between items-center">
           <p class="inline-block">Price: High to Low</p>
-          <input id="high_to_low_filter" type="checkbox" />
+          <input id="high_to_low_filter" type="checkbox" name="filter" />
         </div>
       </a>
     </li>
     <li>
       <a
-        (click)="filterResults({ byMinimumPrice: true, price: minPrice.value })"
         class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
       >
         <div class="flex justify-between items-center">
@@ -269,13 +273,19 @@
             placeholder="₹"
             class="w-20 h-5 p-2.5 rounded-md"
           />
-          <input id="min_filter" type="checkbox" />
+          <input
+            id="min_filter"
+            type="checkbox"
+            name="filter"
+            (click)="
+              filterResults({ byMinimumPrice: true, price: minPrice.value })
+            "
+          />
         </div>
       </a>
     </li>
     <li>
       <a
-        (click)="filterResults({ byMaximumPrice: true, price: maxPrice.value })"
         class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
       >
         <div class="flex justify-between items-center">
@@ -286,7 +296,14 @@
             placeholder="₹"
             class="w-20 h-5 p-2.5 rounded-md"
           />
-          <input id="max_filter" type="checkbox" />
+          <input
+            id="max_filter"
+            type="checkbox"
+            name="filter"
+            (click)="
+              filterResults({ byMaximumPrice: true, price: maxPrice.value })
+            "
+          />
         </div>
       </a>
     </li>
@@ -301,7 +318,7 @@
         >
           <div class="flex justify-between items-center">
             <p class="inline-block">Amazon</p>
-            <input id="amazon_filter" type="checkbox" />
+            <input id="amazon_filter" type="radio" name="filter" />
           </div>
         </a>
       </li>
@@ -312,7 +329,7 @@
         >
           <div class="flex justify-between items-center">
             <p class="inline-block">Flipkart</p>
-            <input id="flipkat_filter" type="checkbox" />
+            <input id="flipkat_filter" type="radio" name="filter" />
           </div>
         </a>
       </li>
@@ -323,7 +340,7 @@
         >
           <div class="flex justify-between items-center">
             <p class="inline-block">ShopClues</p>
-            <input id="shopclues_filter" type="checkbox" />
+            <input id="shopclues_filter" type="radio" name="filter" />
           </div>
         </a>
       </li>
@@ -334,7 +351,7 @@
         >
           <div class="flex justify-between items-center">
             <p class="inline-block">Reliance</p>
-            <input id="reliance_filter" type="checkbox" />
+            <input id="reliance_filter" type="radio" name="filter" />
           </div>
         </a>
       </li>

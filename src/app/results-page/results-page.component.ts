@@ -20,6 +20,8 @@ export class ResultsPageComponent implements OnInit {
     public sharingService: SharingService
   ) {}
 
+  isLoading = true;
+  resetFilters = false;
   gotError = false;
   productName: string | null = '';
   errorMessage = 'Looks like something went wrong on our side...';
@@ -28,8 +30,6 @@ export class ResultsPageComponent implements OnInit {
   // apiUrl = 'https://tender-grass-55002.pktriot.net/results?product=';
   results: any = [];
   // Start loading animations
-  hideLoadingAnimation = false;
-  hideResults = true;
   pageNumber: number = 1;
   search_bar = new FormControl(''); // search bar
   search_icon = faMagnifyingGlass;
@@ -38,13 +38,13 @@ export class ResultsPageComponent implements OnInit {
   showFilters = false;
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.resolveQueryParams();
   }
 
   onClickSearch() {
     if (this.search_bar.value!.length > 2) {
       // display loading indicator
-      this.hideLoadingAnimation = false;
       this.router.navigateByUrl('/results?search=' + this.search_bar.value);
     } else {
       // error Popup
@@ -107,11 +107,12 @@ export class ResultsPageComponent implements OnInit {
     localStorage.setItem('product', JSON.stringify(data));
   }
 
-  fetchProducts(productName: string) {
-    this.productName = "'" + productName + "'";
+  fetchProducts(productName: string | null) {
+    this.productName = "'" + productName?.replace("'", '') + "'";
     let url = this.apiUrl + productName;
     this.api.getProducts(url).subscribe({
       next: (products) => {
+        this.isLoading = false;
         this.results = products;
         this.results = this.shuffleArray(this.results.flat());
         this.sharingService.setproductArray(this.results);
@@ -125,23 +126,18 @@ export class ResultsPageComponent implements OnInit {
             x.link != undefined
           );
         });
-        // display the results
-        this.hideResults = false;
       },
       error: (error) => {
         console.log('oops: ', error);
         this.gotError = true;
       },
     });
-    // turn loading off
-    this.hideLoadingAnimation = true;
+    // turn on filters
     this.showFilters = true;
   }
 
   // fetchProductsForCategory
   fetchProductsForCategory(categoryName: string) {
-    this.hideLoadingAnimation = false;
-    this.hideResults = true;
     // an array of products to fetch for a particular category.
     var categoryArray: any = [];
     var categoryMap = {
@@ -153,7 +149,7 @@ export class ResultsPageComponent implements OnInit {
         'Charger',
         'Smartwatches',
       ],
-      Fashion: ['Mens Wear', 'Womens Wear', 'Footwear', 'Watches'],
+      Fashion: ['Mens Clothes', 'Womens Clothes', 'Footwear', 'Watches'],
       Sports: [
         'Cricket Bat',
         'Cricket Ball',
@@ -177,11 +173,22 @@ export class ResultsPageComponent implements OnInit {
       let url = this.apiUrl + categoryArray[i];
       this.api.getProducts(url).subscribe({
         next: (products: any) => {
+          this.isLoading = true;
           Object.entries(products).forEach(([k, v]) => {
             this.results.push(v);
             this.results = this.results.flat();
           });
+          this.results = this.results.filter((x: any) => {
+            return (
+              x.href != undefined &&
+              x.title != undefined &&
+              x.site != undefined &&
+              x.price != undefined &&
+              x.link != undefined
+            );
+          });
           this.results = this.shuffleArray(this.results);
+          this.isLoading = false;
         },
         error: (error) => {
           console.log('oops: ', error);
@@ -190,10 +197,8 @@ export class ResultsPageComponent implements OnInit {
         },
       });
     }
-    console.log('Results:   ' + this.results);
-    this.hideResults = false; // display the results
     this.sharingService.setproductArray(this.results);
-    this.showFilters = true;
+    this.showFilters = false;
   }
 
   // filter products
@@ -210,9 +215,14 @@ export class ResultsPageComponent implements OnInit {
       );
       checkbox.checked = !checkbox.checked;
       if (checkbox.checked) {
+        const checkbox2 = <HTMLInputElement>(
+          document.getElementById('high_to_low_filter')
+        );
+        if (checkbox2.checked) checkbox2.checked = false;
         this.results = this.results.sort((a: any, b: any) =>
           this.compare(a, b)
         );
+        this.resetFilters = true;
       } else this.results = this.shuffleArrayOfProducts(this.results);
     }
     if (byPriceHighToLow) {
@@ -221,27 +231,54 @@ export class ResultsPageComponent implements OnInit {
       );
       checkbox.checked = !checkbox.checked;
       if (checkbox.checked) {
+        const checkbox2 = <HTMLInputElement>(
+          document.getElementById('low_to_high_filter')
+        );
+        if (checkbox2.checked) checkbox2.checked = false;
         this.results = this.results.sort((a: any, b: any) =>
           this.compare(b, a)
         );
+        this.resetFilters = true;
       } else this.results = this.shuffleArrayOfProducts(this.results);
     }
     if (byMinimumPrice) {
       const checkbox = <HTMLInputElement>document.getElementById('min_filter');
-      checkbox.checked = !checkbox.checked;
       if (checkbox.checked) {
         if (Number(price) > 0) {
           this.results = this.results.filter((x: any) => {
-            let a = parseFloat(x.price);
+            let a = Number(x.price.replace(',', ''));
             let b = Number(price);
+            console.log(a, b);
+            return a > b;
+          });
+        } else {
+          this.showPopUp = true;
+          this.message = 'Invalid price';
+        }
+        this.resetFilters = true;
+      } else this.results = this.sharingService.getproductArray();
+    }
+    if (byMaximumPrice) {
+      const checkbox = <HTMLInputElement>document.getElementById('max_filter');
+      if (checkbox.checked) {
+        if (Number(price) > 0) {
+          this.results = this.results.filter((x: any) => {
+            let a = Number(x.price.replace(',', ''));
+            let b = Number(price);
+            console.log(a, b);
             return a < b;
           });
         } else {
           this.showPopUp = true;
           this.message = 'Invalid price';
         }
+        this.resetFilters = true;
       } else this.results = this.sharingService.getproductArray();
     }
+  }
+
+  reloadPage() {
+    window.location.reload();
   }
 
   compare(a: any, b: any) {
@@ -264,6 +301,7 @@ export class ResultsPageComponent implements OnInit {
     byShopClues,
   }: iFilterByBrand) {
     if (byAmazon) {
+      this.results = this.sharingService.getproductArray();
       const checkbox = <HTMLInputElement>(
         document.getElementById('amazon_filter')
       );
@@ -272,9 +310,11 @@ export class ResultsPageComponent implements OnInit {
         this.results = this.results.filter((x: any) => {
           return x.site === 'Amazon';
         });
-      } else this.results = this.sharingService.getproductArray();
+        this.resetFilters = true;
+      }
     }
     if (byReliance) {
+      this.results = this.sharingService.getproductArray();
       const checkbox = <HTMLInputElement>(
         document.getElementById('reliance_filter')
       );
@@ -283,9 +323,11 @@ export class ResultsPageComponent implements OnInit {
         this.results = this.results.filter((x: any) => {
           return x.site === 'Reliance';
         });
-      } else this.results = this.sharingService.getproductArray();
+        this.resetFilters = true;
+      }
     }
     if (byFlipkart) {
+      this.results = this.sharingService.getproductArray();
       const checkbox = <HTMLInputElement>(
         document.getElementById('flipkat_filter')
       );
@@ -294,9 +336,11 @@ export class ResultsPageComponent implements OnInit {
         this.results = this.results.filter((x: any) => {
           return x.site === 'Flipkart';
         });
-      } else this.results = this.sharingService.getproductArray();
+        this.resetFilters = true;
+      }
     }
     if (byShopClues) {
+      this.results = this.sharingService.getproductArray();
       const checkbox = <HTMLInputElement>(
         document.getElementById('shopclues_filter')
       );
@@ -305,8 +349,56 @@ export class ResultsPageComponent implements OnInit {
         this.results = this.results.filter((x: any) => {
           return x.site === 'ShopClues';
         });
-      } else this.results = this.sharingService.getproductArray();
+        this.resetFilters = true;
+      }
     }
+  }
+  filterByBrand2({
+    byAmazon,
+    byFlipkart,
+    byReliance,
+    byShopClues,
+  }: iFilterByBrand) {
+    const checkboxAmazon = <HTMLInputElement>(
+      document.getElementById('amazon_filter')
+    );
+    const checkboxFlipkart = <HTMLInputElement>(
+      document.getElementById('flipkat_filter')
+    );
+    const checkboxReliance = <HTMLInputElement>(
+      document.getElementById('reliance_filter')
+    );
+    const checkboxShopClues = <HTMLInputElement>(
+      document.getElementById('shopclues_filter')
+    );
+
+    let filter = {
+      amazon: checkboxAmazon.checked,
+      flipkart: checkboxFlipkart.checked,
+      reliance: checkboxReliance.checked,
+      shopclues: checkboxShopClues.checked,
+    };
+
+    this.results = this.sharingService.getproductArray();
+
+    this.results = this.results.filter((x: any) => {
+      let y: any = [];
+      if (byAmazon) {
+        y.push('Amazon');
+      }
+      if (byFlipkart) {
+        y.push('Flipkart');
+      }
+      if (byReliance) {
+        y.push('Reliance');
+      }
+      if (byShopClues) {
+        y.push('ShopClues');
+      }
+      console.log(y);
+      return y.includes(x.site);
+    });
+    this.resetFilters = true;
   }
 }
 

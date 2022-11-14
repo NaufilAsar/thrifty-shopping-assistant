@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
+  email: string = '';
+  authState: any = null;
   userLoggedIn: boolean; // other components can check on this variable for the login status of the user
 
   constructor(private router: Router, private afAuth: AngularFireAuth) {
@@ -19,6 +21,20 @@ export class AuthService {
         this.userLoggedIn = false;
       }
     });
+    this.afAuth.authState.subscribe((authState) => {
+      this.authState = authState;
+    });
+  }
+
+  get isAuthenticated(): boolean {
+    return this.authState !== null;
+  }
+
+  get userEmail(): any {
+    if (!this.isAuthenticated) {
+      return [];
+    }
+    return this.authState.email;
   }
 
   logoutUser() {
@@ -26,10 +42,10 @@ export class AuthService {
   }
 
   loginUser(email: string, password: string): Promise<any> {
-    console.log(this.afAuth.tenantId);
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
+        console.log(this.userEmail);
         console.log('Auth Service: loginUser: success');
         // this.router.navigate(['/dashboard']);
       })
