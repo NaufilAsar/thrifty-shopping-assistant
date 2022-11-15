@@ -49,7 +49,7 @@ export class SignupPageComponent implements OnInit {
         if (result == null) {
           // null is success, false means there was an error
           console.log('signing up...');
-          this.signupMessage = 'User logged in successfuly.';
+          this.signupMessage = 'User logged in successfully.';
           console.log('user created.');
         } else if (result.isValid == false) {
           console.log('user not created.');

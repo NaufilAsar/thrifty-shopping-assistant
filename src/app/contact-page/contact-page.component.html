@@ -35,25 +35,7 @@
       required="required"
       data-error="Please, write us a message."
     ></textarea>
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
-    <script>
-      function sendEmail() {
-        Email.send({
-          Host: "smtp.elasticemail.com",
-          Username: "bruhcoders@gmail.com",
-          Password: "ss51@lpsghgbf",
-          To: this.email.value,
-          From: "bruhcoders@gmail.com",
-          Subject: "Sending Email using javascript",
-          Body: "Well that was easy!!",
-        })
-          .then(function (message) {
-            alert("mail sent successfully");
-          })
-          .catch((err) => console.log(err));
-      }
-      document.getElementById("btn").addEventListener("click", sendEmail);
-    </script>
+
     <button
       id="btn"
       class="dark:bg-teal-600 mx-auto bg-green-500 text-white shadow-lg font-poppins font-bold px-3 py-2 rounded-lg mt-5 my-12"
