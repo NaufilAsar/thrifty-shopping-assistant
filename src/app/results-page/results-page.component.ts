@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { SharingService } from '../services/sharing.service';
 })
 export class ResultsPageComponent implements OnInit {
   constructor(
+    private eRef: ElementRef,
     private router: Router,
     private title: Title,
     private activatedRoute: ActivatedRoute,
@@ -36,16 +37,23 @@ export class ResultsPageComponent implements OnInit {
   message = '';
   showPopUp = false;
   showFilters = false;
+  hideFilterDropdown = true;
 
   ngOnInit(): void {
     this.isLoading = true;
     this.resolveQueryParams();
   }
 
+  filterBtnClick() {
+    this.hideFilterDropdown = !this.hideFilterDropdown;
+  }
+
   onClickSearch() {
     if (this.search_bar.value!.length > 2) {
       // display loading indicator
-      this.router.navigateByUrl('/results?search=' + this.search_bar.value);
+      this.router.navigateByUrl(
+        '/results?search=' + this.search_bar.value?.replace(' ', '_')
+      );
     } else {
       // error Popup
       this.showPopUp = true;
@@ -108,7 +116,9 @@ export class ResultsPageComponent implements OnInit {
   }
 
   fetchProducts(productName: string | null) {
-    this.productName = "'" + productName?.replace("'", '') + "'";
+    this.isLoading = true;
+    this.productName =
+      "'" + productName?.replace("'", '').replace('_', ' ') + "'";
     let url = this.apiUrl + productName;
     this.api.getProducts(url).subscribe({
       next: (products) => {
@@ -329,7 +339,7 @@ export class ResultsPageComponent implements OnInit {
     if (byFlipkart) {
       this.results = this.sharingService.getproductArray();
       const checkbox = <HTMLInputElement>(
-        document.getElementById('flipkat_filter')
+        document.getElementById('flipkart_filter')
       );
       checkbox.checked = !checkbox.checked;
       if (checkbox.checked) {
@@ -363,7 +373,7 @@ export class ResultsPageComponent implements OnInit {
       document.getElementById('amazon_filter')
     );
     const checkboxFlipkart = <HTMLInputElement>(
-      document.getElementById('flipkat_filter')
+      document.getElementById('flipkart_filter')
     );
     const checkboxReliance = <HTMLInputElement>(
       document.getElementById('reliance_filter')

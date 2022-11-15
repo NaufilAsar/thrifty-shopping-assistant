@@ -21,7 +21,9 @@ export class HomePageComponent implements OnInit {
 
   onClickSearch() {
     if (this.search_bar.value!.length > 2) {
-      this.router.navigateByUrl('/results?search=' + this.search_bar.value);
+      this.router.navigateByUrl(
+        '/results?search=' + this.search_bar.value?.replace(' ', '_')
+      );
     } else {
       // error Popup
     }

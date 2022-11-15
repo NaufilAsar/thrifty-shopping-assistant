@@ -44,31 +44,228 @@
       class="text-custom-dark-teal dark:text-gray-300 font-ubuntu font-bold text-xl md:text-2xl flex justify-between my-10 mx-9 md:mx-auto md:w-7/12"
     >
       Showing {{ results.length }} results for {{ this.productName }}
-      <button
-        *ngIf="showFilters"
-        id="dropdownFilterDefault"
-        data-dropdown-toggle="dropdownFilter"
-        class="bg-transparent font-bold font-ubuntu text-green-700 dark:bg-teal-500 dark:shadow-lg dark:text-white shadow-lg focus:ring-2 focus:outline-none dark:focus:ring-teal-700 focus:ring-custom-dark-teal rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
-        type="button"
-        style="height: 2.3rem"
-      >
-        Filters
-        <svg
-          class="ml-2 w-4 h-4"
-          aria-hidden="true"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+
+      <div class="relative inline-block text-left">
+        <div>
+          <button
+            (click)="filterBtnClick()"
+            type="button"
+            class="inline-flex border border-custom-light-teal dark:border-teal-500 w-full justify-center rounded-lg px-4 py-2 text-sm hover:bg-custom-teal bg-transparent font-bold font-ubuntu text-green-700 dark:bg-teal-500 dark:shadow-lg dark:text-white shadow-lg font-ubuntu dark:focus:ring-teal-700 focus:ring-custom-dark-teal text-center items-center"
+            id="menu-button"
+            aria-expanded="true"
+            aria-haspopup="true"
+          >
+            Filters
+            <!-- Heroicon name: mini/chevron-down -->
+            <svg
+              class="-mr-1 ml-2 h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <!--
+          Dropdown menu, show/hide based on menu state.
+      
+          Entering: "transition ease-out duration-100"
+            From: "transform opacity-0 scale-95"
+            To: "transform opacity-100 scale-100"
+          Leaving: "transition ease-in duration-75"
+            From: "transform opacity-100 scale-100"
+            To: "transform opacity-0 scale-95"
+        -->
+        <div
+          [hidden]="hideFilterDropdown"
+          class="absolute right-0 z-10 mt-2 w-64 origin-top-right rounded-md bg-white dark:bg-gray-700 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="menu-button"
+          tabindex="-1"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M19 9l-7 7-7-7"
-          ></path>
-        </svg>
-      </button>
+          <div class="py-1" role="none">
+            <div
+              *ngIf="resetFilters"
+              class="block text-sm py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+              (click)="reloadPage()"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-0"
+            >
+              <div class="flex justify-between items-center">
+                <p class="inline-block">Reset Filters</p>
+              </div>
+            </div>
+            <div
+              class="block text-sm py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+              (click)="filterResults({ byPriceLowToHigh: true })"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-0"
+            >
+              <div class="flex justify-between items-center">
+                <p class="inline-block">Price: Low to High</p>
+                <input
+                  id="low_to_high_filter"
+                  type="checkbox"
+                  (click)="filterResults({ byPriceLowToHigh: true })"
+                  name="filter"
+                />
+              </div>
+            </div>
+            <div
+              class="block text-sm py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+              (click)="filterResults({ byPriceHighToLow: true })"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-0"
+            >
+              <div class="flex justify-between items-center">
+                <p class="inline-block">Price: High to Low</p>
+                <input
+                  id="high_to_low_filter"
+                  type="checkbox"
+                  (click)="filterResults({ byPriceHighToLow: true })"
+                  name="filter"
+                />
+              </div>
+            </div>
+            <div
+              class="block text-sm py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-0"
+            >
+              <div class="flex justify-between items-center">
+                <p class="inline-block">Minimum price</p>
+                <input
+                  #minPrice
+                  type="number"
+                  placeholder="₹"
+                  class="w-20 h-5 p-2.5 rounded-md"
+                />
+                <input
+                  id="min_filter"
+                  type="checkbox"
+                  name="filter"
+                  (click)="
+                    filterResults({
+                      byMinimumPrice: true,
+                      price: minPrice.value
+                    })
+                  "
+                />
+              </div>
+            </div>
+            <div
+              class="block text-sm py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-0"
+            >
+              <div class="flex justify-between items-center">
+                <p class="inline-block">Maximum price</p>
+                <input
+                  #maxPrice
+                  type="number"
+                  placeholder="₹"
+                  class="w-20 h-5 p-2.5 rounded-md"
+                />
+                <input
+                  id="max_filter"
+                  type="checkbox"
+                  name="filter"
+                  (click)="
+                    filterResults({
+                      byMaximumPrice: true,
+                      price: maxPrice.value
+                    })
+                  "
+                />
+              </div>
+            </div>
+            <span class="text-base ml-4">Brand:</span>
+            <div class="ml-6">
+              <div
+                class="block text-sm py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+                (click)="filterByBrand({ byAmazon: true })"
+                role="menuitem"
+                tabindex="-1"
+                id="menu-item-0"
+              >
+                <div class="flex justify-between items-center">
+                  <p class="inline-block">Amazon</p>
+                  <input
+                    id="amazon_filter"
+                    type="radio"
+                    (click)="filterByBrand({ byAmazon: true })"
+                    name="filter"
+                  />
+                </div>
+              </div>
+              <div
+                class="block text-sm py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+                (click)="filterByBrand({ byFlipkart: true })"
+                role="menuitem"
+                tabindex="-1"
+                id="menu-item-0"
+              >
+                <div class="flex justify-between items-center">
+                  <p class="inline-block">Flipkart</p>
+                  <input
+                    id="flipkart_filter"
+                    type="radio"
+                    (click)="filterByBrand({ byFlipkart: true })"
+                    name="filter"
+                  />
+                </div>
+              </div>
+              <div
+                class="block text-sm py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+                (click)="filterByBrand({ byReliance: true })"
+                role="menuitem"
+                tabindex="-1"
+                id="menu-item-0"
+              >
+                <div class="flex justify-between items-center">
+                  <p class="inline-block">Reliance</p>
+                  <input
+                    id="reliance_filter"
+                    type="radio"
+                    (click)="filterByBrand({ byReliance: true })"
+                    name="filter"
+                  />
+                </div>
+              </div>
+              <div
+                class="block text-sm py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
+                (click)="filterByBrand({ byShopClues: true })"
+                role="menuitem"
+                tabindex="-1"
+                id="menu-item-0"
+              >
+                <div class="flex justify-between items-center">
+                  <p class="inline-block">ShopClues</p>
+                  <input
+                    id="shopclues_filter"
+                    type="radio"
+                    (click)="filterByBrand({ byShopClues: true })"
+                    name="filter"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div *ngIf="showPopUp" class="flex justify-center animated">
       <div
@@ -208,11 +405,12 @@
     </div>
   </div>
 </div>
+<!-- Dropdown menu -->
 
 <!-- Dropdown menu -->
-<div
+<!-- <div
   id="dropdownFilter"
-  class="mt-12 hidden z-50 w-60 dark:bg-gray-700 bg-gray-100 rounded divide-y divide-gray-100 shadow-lg"
+  class=" "
   style="
     position: absolute;
     inset: 0px auto auto 0px;
@@ -223,10 +421,7 @@
   data-popper-escaped=""
   data-popper-placement="bottom"
 >
-  <ul
-    class="py-1 text-sm text-gray-700"
-    aria-labelledby="dropdownFilterDefault"
-  >
+  <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownFilter">
     <li *ngIf="resetFilters">
       <a
         (click)="reloadPage()"
@@ -357,4 +552,4 @@
       </li>
     </ul>
   </div>
-</div>
+</div> -->
