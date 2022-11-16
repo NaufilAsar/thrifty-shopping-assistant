@@ -103,6 +103,16 @@
             </svg>
           </div>
         </button>
+
+        <button
+          class="w-9 h-9 shadow-md bg-transparent rounded-lg flex justify-center items-center focus:ring-2 dark:bg-gray-900"
+          (click)="priceAlertCartBtnClick()"
+        >
+          <i
+            class="fa-solid fa-cart-shopping text-xl text-green-700 dark:text-gray-300"
+          ></i>
+        </button>
+
         <button
           id="dropdownDefault"
           data-dropdown-toggle="dropdown"
@@ -237,6 +247,25 @@
               />
             </svg>
           </div>
+        </button>
+      </div>
+    </div>
+    <div
+      class="dark:text-gray-300 hover:bg-custom-light-teal dark:hover:bg-gray-800 hover:text-green-900 text-green-700 block py-4 px-6 transition duration-300 rounded-md cursor-pointer"
+    >
+      <!-- Cart Button -->
+      <div
+        class="dark:text-gray-300 text-green-700 flex flex-row items-center"
+        (click)="priceAlertCartBtnClick()"
+      >
+        <span class="mr-5">Price Alerts Cart</span>
+        <button
+          (click)="priceAlertCartBtnClick()"
+          class="w-9 h-9 shadow-md bg-transparent rounded-lg flex justify-center items-center focus:ring-2 dark:bg-gray-900"
+        >
+          <i
+            class="fa-solid fa-cart-shopping text-xl text-green-700 dark:text-gray-300"
+          ></i>
         </button>
       </div>
     </div>

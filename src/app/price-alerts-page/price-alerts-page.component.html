@@ -1,1 +1,97 @@
-<p>price-alerts-page works!</p>
+<div class="text-green-700 dark:text-gray-300">
+  <h1 class="text-3xl font-bold font-ubuntu text-center my-7 mt-12">
+    Price Alert Notifications
+  </h1>
+  <!-- Not logged in -->
+  <div
+    style="height: 70vh"
+    *ngIf="!authService.userLoggedIn"
+    class="text-center m-8 mx-auto glass-drop-effect rounded-lg dark:border-gray-700 dark:bg-dark-bootstrap-transparent w-5/6 md:w-4/6 lg:w-5/12 p-10"
+  >
+    <div>
+      <p class="text-2xl my-8 font-ubuntu font-bold">Please Log in!</p>
+      <p class="text-xl mt-8">
+        You need to login with your email to receive price notifications.
+      </p>
+      <div class="animated">
+        <ng-lottie
+          height="300px"
+          [options]="{ path: 'assets/anim/login.json' }"
+        ></ng-lottie>
+      </div>
+    </div>
+  </div>
+  <!-- Logged in -->
+  <div
+    style="min-height: 70vh"
+    *ngIf="authService.userLoggedIn"
+    class="text-center m-8 mx-auto glass-drop-effect rounded-lg dark:border-gray-700 dark:bg-dark-bootstrap-transparent w-5/6 md:w-4/6 lg:w-5/12 p-10"
+  >
+    <p class="text-2xl font-bold font-ubuntu my-5 mb-10">Cart</p>
+    <!-- If no subscriptions -->
+    <div *ngIf="this.subscriptions.length === 0">
+      <p class="text-xl my-4 mt-8">
+        Seems like you haven't subscribed to any price change notifications..
+      </p>
+      <div class="animated">
+        <ng-lottie
+          height="300px"
+          [options]="{ path: 'assets/anim/empty.json' }"
+        ></ng-lottie>
+      </div>
+    </div>
+    <div *ngIf="this.subscriptions.length !== 0">
+      <div *ngIf="showPopUp">
+        <div
+          id="toast-simple"
+          class="mx-auto my-5 w-72 dark:opacity-100 flex items-center p-4 space-x-4 bg-white rounded-lg shadow-lg dark:bg-dark-bootstrap dark:text-white animated"
+          role="alert"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6 text-green-400"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+            />
+          </svg>
+          <p class="pl-1 text-sm font-normal">
+            Unsubscribed for the item.
+            <span
+              (click)="undo()"
+              class="underline text-green-700 dark:text-gray-300 cursor-pointer font-semibold"
+              >Undo</span
+            >
+          </p>
+        </div>
+      </div>
+      <div
+        *ngFor="let item of subscriptions; let i = index; let last = last"
+        class="m-4"
+      >
+        <div class="flex justify-between px-10 items-center">
+          <p class="text-xl">{{ item }}</p>
+          <button
+            (click)="unsubscribe(i)"
+            class="cursor-pointer py-2 px-3 bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 rounded-lg text-gray-200"
+          >
+            Delete
+          </button>
+        </div>
+        <!-- Don't display bottom border for last element  -->
+        <div *ngIf="!last">
+          <hr
+            class="mx-auto my-6 border border-l-0 border-t-0 border-r-0 border-b-green-200"
+            style="width: 70%"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

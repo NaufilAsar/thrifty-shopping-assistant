@@ -72,4 +72,8 @@ export class NavBarComponent implements OnInit {
     this.isDarkEnable = !this.isDarkEnable;
     this.changeThemeEvent.emit();
   }
+
+  priceAlertCartBtnClick() {
+    this.router.navigateByUrl('/price-alerts-page');
+  }
 }

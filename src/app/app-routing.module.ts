@@ -7,6 +7,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LogoutPageComponent } from './logout-page/logout-page.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { PriceAlertsPageComponent } from './price-alerts-page/price-alerts-page.component';
 import { PriceInfoPageComponent } from './price-info-page/price-info-page.component';
 import { PrivacyPolicyPageComponent } from './privacy-policy-page/privacy-policy-page.component';
 import { ResultsPageComponent } from './results-page/results-page.component';
@@ -60,9 +61,14 @@ const routes: Routes = [
     data: { animation: 'Eight' },
   },
   {
+    path: 'price-alerts-page',
+    component: PriceAlertsPageComponent,
+    data: { animation: 'Nine' },
+  },
+  {
     path: '**',
     component: NotFoundPageComponent,
-    data: { animation: 'Nine' },
+    data: { animation: 'Ten' },
   },
 ];
 
