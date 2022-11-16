@@ -39,7 +39,9 @@
   </form>
 
   <!-- Suggestions -->
-  <div #suggestion></div>
+  <div #suggestion>
+    <app-suggestion-card [query]="search_bar.value"></app-suggestion-card>
+  </div>
   <!-- Results -->
   <div class="">
     <div
@@ -47,6 +49,7 @@
     >
       Showing {{ results.length }} results for {{ this.productName }}
 
+      <!-- Filter Dropdown -->
       <div class="relative inline-block text-left">
         <div>
           <button

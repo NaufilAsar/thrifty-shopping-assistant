@@ -47,6 +47,7 @@ import player from 'lottie-web';
 import { SharingService } from './services/sharing.service';
 import { LoadingComponent } from './loading/loading.component';
 import { PriceAlertsPageComponent } from './price-alerts-page/price-alerts-page.component';
+import { SuggestionCardComponent } from './suggestion-card/suggestion-card.component';
 export function playerFactory() {
   return player;
 }
@@ -78,6 +79,7 @@ const firebaseConfig = {
     ResultsPageComponent,
     LoadingComponent,
     PriceAlertsPageComponent,
+    SuggestionCardComponent,
   ],
   imports: [
     FontAwesomeModule,

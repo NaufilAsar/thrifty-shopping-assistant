@@ -148,6 +148,7 @@ export class ResultsPageComponent implements OnInit {
 
   // fetchProductsForCategory
   fetchProductsForCategory(categoryName: string) {
+    this.isLoading = true;
     // an array of products to fetch for a particular category.
     var categoryArray: any = [];
     var categoryMap = {

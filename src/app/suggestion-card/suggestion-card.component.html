@@ -1,0 +1,78 @@
+<a
+  routerLink="/price-info"
+  class="w-full flex flex-col justify-between items-stretch"
+  (click)="onProductClick(product)"
+>
+  <div>
+    <img
+      class="p-5 mx-auto my-auto"
+      loading="lazy"
+      style="
+        border-radius: 12%;
+        object-position: center center;
+        max-width: 280px;
+        width: auto;
+        height: 230px;
+        display: block;
+        margin: auto auto;
+      "
+      src="{{ product.href }}"
+      alt="product image"
+    />
+  </div>
+  <!-- <div > -->
+  <div class="px-5 pb-5 mt-auto">
+    <h5
+      class="text-lg font-ubuntu max-h-14 font-semibold dark:font-normal tracking-tight text-custom-dark-teal dark:text-gray-300 overflow-hidden my-3"
+    >
+      {{ product.title }}
+    </h5>
+  </div>
+
+  <div class="flex justify-between items-center px-5 pb-5 mt-auto">
+    <span
+      class="text-2xl font-bold text-green-500 dark:text-gray-300 flex flex-row justify-center items-center"
+      style="font-family: Poppins"
+    >
+      <span class="mr-1">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-8 h-8 text-green-500 dark:text-green-500"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </span>
+      {{ product.price }}
+
+      <span
+        *ngIf="product.price != product.mrp"
+        class="text-base text-red-600 dark:text-red-400 -mb-1 ml-2"
+      >
+        <s>
+          {{ product.mrp }}
+        </s>
+      </span>
+    </span>
+    <button
+      routerLink="{{ product.link }}"
+      [ngClass]="{
+        'bg-[#FFC107]': product.site == 'Amazon',
+        'bg-[#1976D2]': product.site == 'Flipkart',
+        'bg-[#4CAF50]': product.site == 'Reliance',
+        'bg-orange-500': product.site == 'ShopClues'
+      }"
+      class="text-white font-ubuntu font-semibold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-3 py-2 text-center dark:focus:ring-blue-800"
+    >
+      {{ product.site }}
+    </button>
+  </div>
+  <!-- </div> -->
+</a>
