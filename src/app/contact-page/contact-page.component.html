@@ -1,28 +1,34 @@
 <div class="flex justify-center items-center flex-col">
   <h1
-    class="text-5xl text-center text-green-700 font-ubuntu font-bold mb-10 mt-20 dark:text-gray-300"
+    class="text-3xl md:text-5xl text-center text-green-700 font-ubuntu font-bold mb-10 mt-20 dark:text-gray-300"
   >
     Got Questions? Look Here
   </h1>
 
   <form
-    action="https://formspree.io/f/xknekoab"
-    method="post"
+    (submit)="sendEmail($event)"
     [formGroup]="contactForm"
-    class="m-8 glass-drop-effect rounded-lg dark:border-gray-700 dark:bg-dark-bootstrap-transparent p-16 flex flex-col"
+    class="m-8 glass-drop-effect rounded-lg dark:border-gray-700 dark:bg-dark-bootstrap-transparent w-6/6 md:w-4/6 lg:w-4/12 p-8 md:p-16 flex flex-col justify-center"
   >
     <p
-      class="text-2xl mt-4 mb-12 text-green-700 dark:text-gray-300 text-center"
+      class="text-xl md:text-2xl mt-4 mb-12 text-green-700 dark:text-gray-300 text-center"
     >
       Site not working as expected?
     </p>
     <input
+      type="text"
+      name="user_name"
+      autocomplete="on"
+      placeholder="Name"
+      class="block text-center rounded-md border-none shadow-md my-2 mx-auto w-full text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95"
+    />
+    <input
       id="email"
-      name="email"
+      name="to"
       type="text"
       placeholder="Email"
       autocomplete="on"
-      class="block text-center rounded-md border-none shadow-md my-2 mx-auto w-full text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95"
+      class="block text-center rounded-md border-none shadow-md mt-5 mx-auto w-full text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95"
     />
     <br />
     <textarea
@@ -36,11 +42,10 @@
       data-error="Please, write us a message."
     ></textarea>
 
-    <button
-      id="btn"
-      class="dark:bg-teal-600 mx-auto bg-green-500 text-white shadow-lg font-poppins font-bold px-3 py-2 rounded-lg mt-5 my-12"
-    >
-      Submit
-    </button>
+    <input
+      type="submit"
+      class="dark:bg-teal-600 cursor-pointer mx-auto bg-green-500 text-white shadow-lg font-poppins font-bold px-3 py-2 rounded-lg mt-5 my-12"
+      value="Send"
+    />
   </form>
 </div>

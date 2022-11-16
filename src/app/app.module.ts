@@ -46,6 +46,7 @@ import { ResultsPageComponent } from './results-page/results-page.component';
 import player from 'lottie-web';
 import { SharingService } from './services/sharing.service';
 import { LoadingComponent } from './loading/loading.component';
+import { PriceAlertsPageComponent } from './price-alerts-page/price-alerts-page.component';
 export function playerFactory() {
   return player;
 }
@@ -76,6 +77,7 @@ const firebaseConfig = {
     PrivacyPolicyPageComponent,
     ResultsPageComponent,
     LoadingComponent,
+    PriceAlertsPageComponent,
   ],
   imports: [
     FontAwesomeModule,
