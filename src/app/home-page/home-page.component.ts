@@ -12,7 +12,6 @@ export class HomePageComponent implements OnInit {
   constructor(private router: Router) {}
   search_bar = new FormControl(''); // search bar
   search_icon = faMagnifyingGlass; // search icon
-  apiUrl = '';
   resultsLoaded = false; // change to true when results loaded from API
   hideSectionAnimations = this.resultsLoaded;
   gotError = false; // if error when loading results
@@ -21,6 +20,7 @@ export class HomePageComponent implements OnInit {
 
   onClickSearch() {
     if (this.search_bar.value!.length > 2) {
+      localStorage.setItem('search', JSON.stringify(this.search_bar.value));
       this.router.navigateByUrl(
         '/results?search=' + this.search_bar.value?.replace(' ', '_')
       );

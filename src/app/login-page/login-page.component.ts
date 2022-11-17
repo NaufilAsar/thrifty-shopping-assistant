@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { SharingService } from '../services/sharing.service';
 
 @Component({
   selector: 'app-login-page',
@@ -20,7 +21,8 @@ export class LoginPageComponent implements OnInit {
     private title: Title,
     private authService: AuthService,
     private router: Router,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    public sharingService: SharingService
   ) {
     title.setTitle('Login - Thrifty');
     this.loginForm = new FormGroup({
@@ -45,6 +47,7 @@ export class LoginPageComponent implements OnInit {
         if (result == null) {
           // null is success, false means there was an error
           console.log('logging in...');
+          this.sharingService.setEmail(this.authService.userEmail);
           // show a pop up
           this.loginMessage = 'User logged in successfuly.';
           this.showPopUp = true;

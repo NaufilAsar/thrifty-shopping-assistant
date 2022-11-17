@@ -1,6 +1,6 @@
 <!-- Loading Animation -->
 <!-- *ngIf="isLoading" -->
-<app-loading *ngIf="isLoading"></app-loading>
+<app-loading *ngIf="isLoading" [hidden]="gotError"></app-loading>
 
 <!-- Error Section -->
 <div
@@ -25,6 +25,7 @@
     <input
       type="text"
       [formControl]="search_bar"
+      (keydown.enter)="onClickSearch()"
       placeholder="Search something else.."
       class="block m text-center rounded-md border-none shadow-md my-5 mx-auto w-full text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95"
     />
@@ -40,14 +41,14 @@
 
   <!-- Suggestions -->
   <div #suggestion>
-    <app-suggestion-card [query]="search_bar.value"></app-suggestion-card>
+    <app-suggestion-card></app-suggestion-card>
   </div>
   <!-- Results -->
   <div class="">
     <div
       class="text-custom-dark-teal dark:text-gray-300 font-ubuntu font-bold text-xl md:text-2xl flex justify-between my-10 mx-9 md:mx-auto md:w-7/12"
     >
-      Showing {{ results.length }} results for {{ this.productName }}
+      Showing {{ results.length }} search results for {{ this.productName }}
 
       <!-- Filter Dropdown -->
       <div class="relative inline-block text-left">
@@ -306,7 +307,7 @@
           let i = index
         "
         id="{{ i }}"
-        class="hover:scale-105 hover:shadow-xl hover:bg-more-transparent-light-teal dark:hover:bg-dark-bootstrap-transparent hover:rounded-lg"
+        class="animated-card hover:scale-105 hover:shadow-xl hover:bg-more-transparent-light-teal dark:hover:bg-dark-bootstrap-transparent hover:rounded-lg"
       >
         <div
           id="now"

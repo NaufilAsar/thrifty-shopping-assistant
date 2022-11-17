@@ -1,5 +1,5 @@
-import { query } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { GetProductsService } from '../services/get-products.service';
 
 @Component({
@@ -8,17 +8,13 @@ import { GetProductsService } from '../services/get-products.service';
   styleUrls: ['./suggestion-card.component.css'],
 })
 export class SuggestionCardComponent implements OnInit {
-  @Input() query: string | null = null;
-  apiUrl = 'http:localhost:8080/suggestion?for=';
-  product: any = {
-    href: '',
-    title: '',
-    price: '',
-    mrp: '',
-    link: '',
-    site: '',
-  };
-  constructor(private api: GetProductsService) {}
+  specs = {};
+  search_query: string | null = null;
+  product: any = {};
+  constructor(
+    private api: GetProductsService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.fetchSuggestions();
@@ -27,11 +23,27 @@ export class SuggestionCardComponent implements OnInit {
     localStorage.setItem('product', JSON.stringify(data));
   }
   fetchSuggestions() {
-    // this.product =
-    let url = this.apiUrl + query;
-    this.api.getProducts(url).subscribe({
+    this.activatedRoute.queryParams.subscribe(async (params: Params) => {
+      if (params['search'] !== undefined && params['category'] === undefined) {
+        // Normal search for products
+        this.search_query = params['search'];
+      }
+    });
+    let s = this.search_query?.replace(' ', '_');
+    this.api.getSuggestedProduct(s!).subscribe({
       next: (data: any) => {
         this.product = data;
+        console.log(this.search_query);
+        console.log(data);
+        this.api.getSpecfications(this.product.link).subscribe({
+          next: (specs: any) => {
+            console.log(specs);
+            this.specs = specs;
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        });
       },
       error: (err: any) => console.log(err),
     });

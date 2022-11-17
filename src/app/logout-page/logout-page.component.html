@@ -4,7 +4,7 @@
     (ngSubmit)="logoutUser()"
     class="m-8 glass-drop-effect rounded-lg dark:border-gray-700 dark:bg-dark-bootstrap-transparent w-5/6 md:w-3/6 lg:w-5/12 p-3"
   >
-    <div *ngIf="showPopUp" class="flex justify-center animated mt-10">
+    <div *ngIf="showPopUp" class="flex justify-center animated -mb-5 mt-5">
       <div
         id="toast-simple"
         class="dark:opacity-100 flex items-center p-4 space-x-4 bg-white rounded-lg shadow-lg dark:bg-dark-bootstrap dark:text-white"
@@ -33,7 +33,7 @@
 
     <div class="text-center">
       <h1
-        class="text-6xl text-green-700 font-ubuntu font-bold mb-10 mt-20 dark:text-gray-300"
+        class="text-4xl md:text-6xl text-green-700 font-ubuntu font-bold mb-10 mt-20 dark:text-gray-300"
       >
         Logout
       </h1>
@@ -48,6 +48,21 @@
       >
         Logout
       </button>
+
+      <p class="text-xl mb-12 text-green-700 dark:text-gray-300">
+        <span class="my-5 text-2xl block">OR</span>
+
+        You can also delete your account from our server. The only data we store
+        is your email address and the list of price alerts you subscribed :)
+      </p>
+      <div class="mb-10">
+        <a
+          (click)="deleteAccount()"
+          class="cursor-pointer hover:text-green-500 dark:hover:text-gray-400 text-xl underline text-green-700 font-ubuntu font-bold dark:text-gray-300"
+        >
+          Delete your account
+        </a>
+      </div>
     </div>
   </form>
 </div>

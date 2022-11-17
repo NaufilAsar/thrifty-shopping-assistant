@@ -8,6 +8,8 @@ import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
   styleUrls: ['./contact-page.component.css'],
 })
 export class ContactPageComponent implements OnInit {
+  showPopUp = false;
+  message = '';
   contactForm = new FormGroup('');
   email = new FormControl('', [Validators.required, Validators.email]);
   body = new FormControl('', Validators.required);
@@ -26,10 +28,15 @@ export class ContactPageComponent implements OnInit {
       )
       .then(
         (result: EmailJSResponseStatus) => {
-          console.log(result.text);
+          if (result.text === 'OK') {
+            this.showPopUp = true;
+            this.message = 'Message sent successfully';
+          }
         },
         (error) => {
           console.log(error.text);
+          this.showPopUp = true;
+          this.message = error.text.toString();
         }
       );
   }

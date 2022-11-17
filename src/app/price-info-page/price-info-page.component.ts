@@ -6,6 +6,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
 import { FormControl } from '@angular/forms';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-price-info-page',
@@ -15,14 +16,13 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 export class PriceInfoPageComponent implements OnInit {
   product: any = JSON.parse(localStorage.getItem('product') as string);
 
-  // apiUrl: string = 'http://localhost:8080/specs?link=';
-  apiUrl: string = 'https://thrifty-api.herokuapp.com/specs?link=';
-  productArray: any;
-
+  showPopUp = false;
+  message = '';
   email = new FormControl('');
   arrow_icon = faArrowRight;
   displayStyle = 'none';
   suggestions: any = [];
+  specs = {};
   priceData: number[] = [];
   mrpData: number[] = [];
   months = [
@@ -46,18 +46,16 @@ export class PriceInfoPageComponent implements OnInit {
     labels: this.months,
     datasets: [
       {
-        data: Array(this.months.length).fill(this.product.price),
+        data: this.priceData,
         label: 'Price',
-
         fill: true,
         tension: 0,
         borderColor: 'black',
-
         backgroundColor: 'rgba(219,243,235,0.5)',
         borderWidth: 2,
       },
       {
-        data: Array(this.months.length).fill(this.product.mrp),
+        data: this.mrpData,
         label: 'Mrp',
         fill: true,
         tension: 0,
@@ -104,6 +102,7 @@ export class PriceInfoPageComponent implements OnInit {
   public lineChartLegend = true;
 
   constructor(
+    public authService: AuthService,
     private sharingService: SharingService,
     private api: GetProductsService,
     private title: Title
@@ -112,10 +111,8 @@ export class PriceInfoPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productArray = this.sharingService.getproductArray();
-    console.log(this.productArray);
+    console.log(this.authService.userEmail);
     this.product = JSON.parse(localStorage.getItem('product') as string);
-    console.log(this.product);
     if (this.product != undefined) {
       this.fetchSpecfications();
       this.product.price = parseInt(
@@ -124,6 +121,11 @@ export class PriceInfoPageComponent implements OnInit {
       this.product.mrp = parseInt(
         this.product.mrp.toLocaleString().replace('₹', '').replace(',', '')
       );
+      // console.log(this.product);
+      for (let i = 0; i < this.months.length; i++) {
+        this.priceData.push(this.product.price);
+        this.mrpData.push(this.product.mrp);
+      }
     }
     //
     let currentMonth = new Date().toLocaleString('en-us', { month: 'long' });
@@ -136,14 +138,42 @@ export class PriceInfoPageComponent implements OnInit {
   }
 
   fetchSpecfications(): void {
-    let url = this.apiUrl + this.product.link;
-    this.api.getProducts(url).subscribe({
+    this.api.getSpecfications(this.product.link).subscribe({
       next: (specs: any) => {
         console.log(specs);
+        this.specs = specs;
       },
       error: (error) => {
         console.log(error);
       },
     });
+  }
+
+  subscribe() {
+    if (this.product != undefined) {
+      let url =
+        '/wishlist?act=i&id=' +
+        this.authService.authState.email +
+        '&title=' +
+        this.product.title +
+        '&link=' +
+        this.product.link +
+        '&price=' +
+        this.product.price +
+        '&search=' +
+        localStorage.getItem('search');
+      this.api.getProducts(url).subscribe({
+        next: (result) => {
+          this.message =
+            'Done! we will notify you whenever the product is price is updated.';
+          this.showPopUp = true;
+        },
+        error: (error) => {
+          console.log(error);
+          this.message = 'Something went wrong.. Please try again later.';
+          this.showPopUp = true;
+        },
+      });
+    }
   }
 }

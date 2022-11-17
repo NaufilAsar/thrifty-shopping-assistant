@@ -50,4 +50,21 @@ export class LogoutPageComponent implements OnInit {
       this.showPopUp = true;
     }
   }
+
+  deleteAccount() {
+    this.authService
+      .deleteUser()
+      .then((result) => {
+        console.log(result);
+        this.showPopUp = true;
+        this.message = 'User deleted successfully.';
+      })
+      .catch((err) => {
+        console.log(err);
+        this.showPopUp = true;
+        this.message = err.message
+          .replace('Firebase: ', '')
+          .replace('(auth/requires-recent-login).', '');
+      });
+  }
 }

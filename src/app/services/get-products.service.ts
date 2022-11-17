@@ -5,8 +5,52 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class GetProductsService {
+  // apiUrl = 'http://localhost:8080';
+  apiUrl = 'https://tender-grass-55002.pktriot.net';
   constructor(private http: HttpClient) {}
-  getProducts(url: string) {
-    return this.http.get(url);
+  getProducts(path: string) {
+    return this.http.get(this.apiUrl + path);
+  }
+
+  getSearchResults(product: string) {
+    return this.http.get(this.apiUrl + '/results?search=' + product);
+  }
+
+  getSpecfications(link: string) {
+    return this.http.get(this.apiUrl + '/specs?link=' + link);
+  }
+
+  getSuggestedProduct(product: string) {
+    return this.http.get(this.apiUrl + '/suggestion?product=' + product);
+  }
+
+  deleteFromCart(email: string, link: string, title: string) {
+    return this.http.get(
+      this.apiUrl +
+        '/wishlist?act=i&id=' +
+        email +
+        '&title=' +
+        title +
+        '&link=' +
+        link
+    );
+  }
+  addToCart(email: string, link: string, title: string, price: string) {
+    return this.http.get(
+      this.apiUrl +
+        '/wishlist?act=i&id=' +
+        email +
+        '&title=' +
+        title +
+        '&link=' +
+        link +
+        '&price=' +
+        price +
+        '&search=' +
+        localStorage.getItem('search')
+    );
+  }
+  readFromCart(email: string) {
+    return this.http.get(this.apiUrl + '/wishlist?act=r&id' + email);
   }
 }

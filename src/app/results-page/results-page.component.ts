@@ -26,9 +26,6 @@ export class ResultsPageComponent implements OnInit {
   gotError = false;
   productName: string | null = '';
   errorMessage = 'Looks like something went wrong on our side...';
-  // apiUrl = 'https://thrifty-api.herokuapp.com/results?product=';
-  apiUrl = 'http://localhost:8080/results?product=';
-  // apiUrl = 'https://tender-grass-55002.pktriot.net/results?product=';
   results: any = [];
   // Start loading animations
   pageNumber: number = 1;
@@ -50,6 +47,7 @@ export class ResultsPageComponent implements OnInit {
 
   onClickSearch() {
     if (this.search_bar.value!.length > 2) {
+      localStorage.setItem('search', JSON.stringify(this.search_bar.value));
       // display loading indicator
       this.router.navigateByUrl(
         '/results?search=' + this.search_bar.value?.replace(' ', '_')
@@ -119,8 +117,7 @@ export class ResultsPageComponent implements OnInit {
     this.isLoading = true;
     this.productName =
       "'" + productName?.replace("'", '').replace('_', ' ') + "'";
-    let url = this.apiUrl + productName;
-    this.api.getProducts(url).subscribe({
+    this.api.getSearchResults(productName!).subscribe({
       next: (products) => {
         this.isLoading = false;
         this.results = products;
@@ -181,8 +178,7 @@ export class ResultsPageComponent implements OnInit {
     // loop for every product of a category and store the results.
     this.results = [];
     for (let i = 0; i < categoryArray.length; i++) {
-      let url = this.apiUrl + categoryArray[i];
-      this.api.getProducts(url).subscribe({
+      this.api.getSearchResults(categoryArray[i]).subscribe({
         next: (products: any) => {
           this.isLoading = true;
           Object.entries(products).forEach(([k, v]) => {
@@ -247,8 +243,9 @@ export class ResultsPageComponent implements OnInit {
         );
         if (checkbox2.checked) checkbox2.checked = false;
         this.results = this.results.sort((a: any, b: any) =>
-          this.compare(b, a)
+          this.compare(a, b)
         );
+        this.results = this.results.reverse();
         this.resetFilters = true;
       } else this.results = this.shuffleArrayOfProducts(this.results);
     }

@@ -4,6 +4,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class SharingService {
+  public email: string = '';
+  getEmail(): string {
+    return this.email;
+  }
+  setEmail(email: string) {
+    this.email = email;
+  }
   private productArray: any = undefined;
 
   setproductArray(productArray: any) {

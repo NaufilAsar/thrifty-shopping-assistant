@@ -57,7 +57,6 @@ export class NavBarComponent implements OnInit {
 
   onNavLinkClick(btnName: string) {
     let currentUrl = this.router.url;
-    console.log(currentUrl);
     if (currentUrl == btnName) {
       window.location.reload();
     }
