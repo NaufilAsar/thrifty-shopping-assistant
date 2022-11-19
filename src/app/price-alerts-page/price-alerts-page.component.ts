@@ -11,7 +11,8 @@ import { SharingService } from '../services/sharing.service';
 export class PriceAlertsPageComponent implements OnInit {
   tempItem: any;
   showPopUp = false;
-  email: string = this.authService.authState?.email;
+  // email = this.sharingService.getEmail();
+  email = localStorage.getItem('email') as string;
   subscriptions: any = [];
 
   constructor(
@@ -21,28 +22,14 @@ export class PriceAlertsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.authService.userEmail === '') {
-      let s = localStorage.getItem('email');
-      let url = 'https://tender-grass-55002.pktriot.net/wishlist?act=r&id=' + s;
-      console.log(s, typeof s);
-      this.api.getProducts(url).subscribe({
-        next: (result: any) => {
-          this.subscriptions = result[0]['title'];
-        },
-        error: (err) => console.log(err),
-      });
-    } else {
-      let url =
-        'https://tender-grass-55002.pktriot.net/wishlist?act=r&id=' +
-        this.authService.userEmail;
-
-      this.api.getProducts(url).subscribe({
-        next: (result: any) => {
-          this.subscriptions = result[0]['title'];
-        },
-        error: (err) => console.log(err),
-      });
-    }
+    console.log(this.email, typeof this.email);
+    this.api.readFromCart(this.email).subscribe({
+      next: (result: any) => {
+        this.subscriptions = result[0]['title'];
+        console.log(result);
+      },
+      error: (err) => console.log(err),
+    });
   }
 
   unsubscribe(index: number) {

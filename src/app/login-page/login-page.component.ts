@@ -31,7 +31,9 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('Login status = ' + this.authService.userLoggedIn);
+  }
 
   loginUser() {
     if (this.loginForm.invalid) {
@@ -43,11 +45,12 @@ export class LoginPageComponent implements OnInit {
     this.authService
       .loginUser(this.loginForm.value.email, this.loginForm.value.password)
       .then((result) => {
-        console.log('Log status' + this.authService.userLoggedIn);
+        console.log('Login status = ' + this.authService.userLoggedIn);
         if (result == null) {
           // null is success, false means there was an error
           console.log('logging in...');
-          this.sharingService.setEmail(this.authService.userEmail);
+          // this.sharingService.setEmail(this.authService.authState.email);
+          localStorage.setItem('email', this.authService.userEmail);
           // show a pop up
           this.loginMessage = 'User logged in successfuly.';
           this.showPopUp = true;

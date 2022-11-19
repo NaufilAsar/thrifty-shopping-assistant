@@ -46,41 +46,34 @@ export class AuthService {
   }
 
   loginUser(email: string, password: string): Promise<any> {
-    return this.afAuth.setPersistence('session').then(() => {
-      this.afAuth.setPersistence('session');
-      return this.afAuth
-        .signInWithEmailAndPassword(email, password)
-        .then(() => {
-          localStorage.setItem(
-            'email',
-            JSON.stringify(this.authState.userEmail)
-          );
-          console.log('Auth Service: loginUser: success');
-          // this.router.navigate(['/dashboard']);
-        })
-        .catch((error) => {
-          console.log('Auth Service: login error...');
-          console.log('error code', error.code);
-          console.log('error', error);
-          if (error.code) return { isValid: false, message: error.message };
-          return;
-        });
-    });
+    this.afAuth.setPersistence('session');
+    return this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        localStorage.setItem('email', JSON.stringify(this.authState.userEmail));
+        console.log('Auth Service: loginUser: success');
+        // this.router.navigate(['/dashboard']);
+      })
+      .catch((error) => {
+        console.log('Auth Service: login error...');
+        console.log('error code', error.code);
+        console.log('error', error);
+        if (error.code) return { isValid: false, message: error.message };
+        return;
+      });
   }
 
   signupUser(user: any): Promise<any> {
-    return this.afAuth.setPersistence('session').then(() => {
-      return this.afAuth
-        .createUserWithEmailAndPassword(user.email, user.password)
-        .then((result) => {
-          this.userLoggedIn = false;
-          result.user!.sendEmailVerification(); // immediately send the user a verification email
-        })
-        .catch((error) => {
-          console.log('Auth Service: signup error', error);
-          if (error.code) return { isValid: false, message: error.message };
-          return;
-        });
-    });
+    return this.afAuth
+      .createUserWithEmailAndPassword(user.email, user.password)
+      .then((result) => {
+        this.userLoggedIn = false;
+        result.user!.sendEmailVerification(); // immediately send the user a verification email
+      })
+      .catch((error) => {
+        console.log('Auth Service: signup error', error);
+        if (error.code) return { isValid: false, message: error.message };
+        return;
+      });
   }
 }

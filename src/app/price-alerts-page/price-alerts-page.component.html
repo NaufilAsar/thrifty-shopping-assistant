@@ -28,6 +28,13 @@
     class="text-center m-8 mx-auto glass-drop-effect rounded-lg dark:border-gray-700 dark:bg-dark-bootstrap-transparent w-5/6 md:w-4/6 lg:w-5/12 p-10"
   >
     <p class="text-2xl font-bold font-ubuntu my-5 mb-10">Cart</p>
+    <p
+      class="text-xl font-semibold font-ubuntu my-5 mb-10"
+      *ngIf="email !== ''"
+    >
+      Showing price alerts subscribed by
+      <span class="underline">{{ email }}</span>
+    </p>
     <!-- If no subscriptions -->
     <div *ngIf="this.subscriptions.length === 0">
       <p class="text-xl my-4 mt-8">

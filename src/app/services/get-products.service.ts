@@ -13,7 +13,7 @@ export class GetProductsService {
   }
 
   getSearchResults(product: string) {
-    return this.http.get(this.apiUrl + '/results?search=' + product);
+    return this.http.get(this.apiUrl + '/results?product=' + product);
   }
 
   getSpecfications(link: string) {
@@ -51,6 +51,6 @@ export class GetProductsService {
     );
   }
   readFromCart(email: string) {
-    return this.http.get(this.apiUrl + '/wishlist?act=r&id' + email);
+    return this.http.get(this.apiUrl + '/wishlist?act=r&id=' + email);
   }
 }
