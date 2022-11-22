@@ -17,6 +17,7 @@ module.exports = {
         // theme: "#fff",
         navy: "#16123f",
         mint: "#c7ddcc",
+        "card-background": "rgb(179, 232, 229)",
         "custom-teal": "#75c9b7",
         "custom-dark-teal": "#157064",
         "custom-light-teal": "#95d1c8",

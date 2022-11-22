@@ -22,7 +22,7 @@ export class HomePageComponent implements OnInit {
     if (this.search_bar.value!.length > 2) {
       localStorage.setItem('search', JSON.stringify(this.search_bar.value));
       this.router.navigateByUrl(
-        '/results?search=' + this.search_bar.value?.replace(' ', '_')
+        '/results?search=' + this.search_bar.value?.replace(' ', '+')
       );
     } else {
       // error Popup

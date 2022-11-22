@@ -21,6 +21,8 @@ export class ResultsPageComponent implements OnInit {
     public sharingService: SharingService
   ) {}
 
+  suggestedProduct: any = {};
+  specifications: any = {};
   isLoading = true;
   resetFilters = false;
   gotError = false;
@@ -50,7 +52,7 @@ export class ResultsPageComponent implements OnInit {
       localStorage.setItem('search', JSON.stringify(this.search_bar.value));
       // display loading indicator
       this.router.navigateByUrl(
-        '/results?search=' + this.search_bar.value?.replace(' ', '_')
+        '/results?search=' + this.search_bar.value?.replace(' ', '+')
       );
     } else {
       // error Popup
@@ -82,6 +84,7 @@ export class ResultsPageComponent implements OnInit {
         ) {
           // Normal search for products
           this.fetchProducts(params['search']);
+          this.fetchSuggestions(params['search']);
         }
       }
     });
@@ -116,7 +119,7 @@ export class ResultsPageComponent implements OnInit {
   fetchProducts(productName: string | null) {
     this.isLoading = true;
     this.productName =
-      "'" + productName?.replace("'", '').replace('_', ' ') + "'";
+      "'" + productName?.replace("'", '').replace('+', ' ') + "'";
     this.api.getSearchResults(productName!).subscribe({
       next: (products) => {
         this.isLoading = false;
@@ -133,6 +136,7 @@ export class ResultsPageComponent implements OnInit {
             x.link != undefined
           );
         });
+        this.fetchSpecfications();
       },
       error: (error) => {
         console.log('oops: ', error);
@@ -407,6 +411,41 @@ export class ResultsPageComponent implements OnInit {
       return y.includes(x.site);
     });
     this.resetFilters = true;
+  }
+
+  // filling suggestions.
+  fetchSuggestions(product: string) {
+    this.api.getSuggestedProduct(product).subscribe({
+      next: (data) => {
+        this.suggestedProduct = data;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+  }
+
+  fetchSpecfications() {
+    // console.log(link);
+    let link = this.suggestedProduct.link;
+    console.log(link);
+    this.api.getSpecfications(link).subscribe({
+      next: (specs: any) => {
+        console.log(specs);
+        let temp: any = {};
+        let i = 0;
+        Object.entries(specs).forEach(([k, v]: any) => {
+          if (!(k.length > 50 || v.length > 50 || i > 6)) {
+            temp[k] = v;
+            i++;
+          }
+        });
+        this.specifications = temp;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 }
 

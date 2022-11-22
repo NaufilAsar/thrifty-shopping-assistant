@@ -6,16 +6,16 @@
 
 <div
   #card
-  class="my-10 mx-8 md:mx-auto md:w-9/12 bg-transparent-light-teal rounded-lg shadow-md dark:bg-dark-bootstrap-transparent dark:border-gray-700"
+  class="my-10 mx-8 md:mx-auto md:w-9/12 bg-card-background rounded-lg shadow-md dark:bg-dark-bootstrap-transparent dark:border-gray-700"
 >
   <a
     routerLink="/price-info"
     class="w-full flex flex-col justify-between items-stretch"
     (click)="onProductClick(product)"
   >
-    <div class="flex justify-evenly">
+    <div class="flex justify-around">
       <!-- Image -->
-      <div class="">
+      <div style="flex: 1" class="">
         <img
           class="p-5 mx-auto my-auto"
           loading="lazy"
@@ -31,73 +31,80 @@
           alt="product image"
         />
       </div>
-      <div class="flex flex-col flex-">
+
+      <div style="flex: 2" class="flex flex-col">
         <!-- Title -->
-        <div class="m-4">
+        <div class="m-4 my-2">
           <h1
-            class="px-5 pb-5 mt-auto text-lg font-ubuntu max-h-14 font-semibold dark:font-normal tracking-tight text-custom-dark-teal dark:text-gray-300 overflow-hidden my-3"
+            class="px-3 pb-3 text-xl underline font-ubuntu max-h-14 font-semibold dark:font-normal tracking-tight text-custom-dark-teal dark:text-gray-300 overflow-hidden my-3"
           >
             {{ product.title }}
           </h1>
         </div>
 
-        <div
-          *ngFor="let p of specs | keyvalue"
-          class="flex justify-evenly ml-8 my-3"
-        >
-          <!-- <p class="text-base inline-block">{{ p.key }}:</p> -->
-          <p class="text-base mr-auto">{{ p.key }} : {{ p.value }}</p>
-        </div>
-
-        <div class="flex justify-between">
-          <!-- Price and MRP -->
-          <div class="flex justify-between items-center px-5 pb-5 mt-auto">
-            <span
-              class="text-2xl font-bold text-green-500 dark:text-gray-300 flex flex-row justify-center items-center"
-              style="font-family: Poppins"
-            >
-              <span class="mr-1">
-                <!-- Rupee symbol -->
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-8 h-8 text-green-500 dark:text-green-500"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </span>
-              {{ product.price }}
-              <span
-                *ngIf="product.price != product.mrp"
-                class="text-base text-red-600 dark:text-red-400 -mb-1 ml-2"
+        <div class="flex flex-row">
+          <!-- Price and MRP, Site Button -->
+          <div>
+            <!-- Price and MRP -->
+            <div class="px-5 pb-5 mt-auto">
+              <div
+                class="text-lg md:text-xl font-bold text-green-500 dark:text-gray-300"
+                style="font-family: Poppins"
               >
-                <s>
-                  {{ product.mrp }}
-                </s>
-              </span>
-            </span>
+                <p class="mr-1 ml-1">
+                  <span class="inline">Price:</span>
+                  <!-- Rupee symbol -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-8 h-8 inline text-green-500 dark:text-green-500"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span class="inline">{{ product.price }}</span>
+                </p>
+                <p
+                  *ngIf="product.price != product.mrp"
+                  class="text-base md:text-lg block text-red-600 dark:text-red-400 -mb-1 ml-2"
+                >
+                  MRP: <s> {{ product.mrp }} </s>
+                </p>
+              </div>
+            </div>
+            <!-- Site button -->
+            <div class="m-3">
+              <button
+                routerLink="{{ product.link }}"
+                [ngClass]="{
+                  'bg-[#FFC107]': product.site == 'Amazon',
+                  'bg-[#1976D2]': product.site == 'Flipkart',
+                  'bg-[#4CAF50]': product.site == 'Reliance',
+                  'bg-orange-500': product.site == 'ShopClues'
+                }"
+                class="text-white font-ubuntu font-semibold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-3 py-2 text-center dark:focus:ring-blue-800"
+              >
+                {{ product.site }}
+              </button>
+            </div>
           </div>
-          <!-- Site -->
-          <div class="m-3">
-            <button
-              routerLink="{{ product.link }}"
-              [ngClass]="{
-                'bg-[#FFC107]': product.site == 'Amazon',
-                'bg-[#1976D2]': product.site == 'Flipkart',
-                'bg-[#4CAF50]': product.site == 'Reliance',
-                'bg-orange-500': product.site == 'ShopClues'
-              }"
-              class="text-white font-ubuntu font-semibold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-3 py-2 text-center dark:focus:ring-blue-800"
-            >
-              {{ product.site }}
-            </button>
+
+          <!-- Specs -->
+          <div class="relative bottom-3">
+            <div *ngFor="let p of specs | keyvalue" class="flex ml-8 my-1">
+              <p
+                class="block text-base ml-3 font-ubuntu text-custom-dark-teal dark:text-gray-300"
+              >
+                {{ p.key }} : {{ p.value }}
+              </p>
+              <br />
+            </div>
           </div>
         </div>
       </div>

@@ -41,7 +41,10 @@
 
   <!-- Suggestions -->
   <div #suggestion>
-    <app-suggestion-card></app-suggestion-card>
+    <app-suggestion-card
+      [product]="suggestedProduct"
+      [specs]="specifications"
+    ></app-suggestion-card>
   </div>
   <!-- Results -->
   <div class="">
@@ -307,11 +310,11 @@
           let i = index
         "
         id="{{ i }}"
-        class="animated-card hover:scale-105 hover:shadow-xl hover:bg-more-transparent-light-teal dark:hover:bg-dark-bootstrap-transparent hover:rounded-lg"
+        class="animated-card hover:scale-105 hover:shadow-xl dark:hover:bg-dark-bootstrap-transparent hover:rounded-lg"
       >
         <div
           id="now"
-          class="w-80 max-w-sm flex flex-col relative bg-transparent-light-teal rounded-lg shadow-md dark:bg-dark-bootstrap-transparent dark:border-gray-700"
+          class="w-80 max-w-sm flex flex-col relative bg-card-background rounded-lg shadow-md dark:bg-dark-bootstrap-transparent dark:border-gray-700"
           style="
             height: 24.5rem;
             display: flex;
@@ -411,151 +414,3 @@
     </div>
   </div>
 </div>
-<!-- Dropdown menu -->
-
-<!-- Dropdown menu -->
-<!-- <div
-  id="dropdownFilter"
-  class=" "
-  style="
-    position: absolute;
-    inset: 0px auto auto 0px;
-    margin: 0px;
-    transform: translate3d(0px, 476px, 0px);
-  "
-  data-popper-reference-hidden=""
-  data-popper-escaped=""
-  data-popper-placement="bottom"
->
-  <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownFilter">
-    <li *ngIf="resetFilters">
-      <a
-        (click)="reloadPage()"
-        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
-      >
-        <div class="flex justify-between items-center">
-          <p class="inline-block">Reset Filters</p>
-        </div>
-      </a>
-    </li>
-
-    <li>
-      <a
-        (click)="filterResults({ byPriceLowToHigh: true })"
-        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
-      >
-        <div class="flex justify-between items-center">
-          <p class="inline-block">Price: Low to High</p>
-          <input id="low_to_high_filter" type="checkbox" name="filter" />
-        </div>
-      </a>
-    </li>
-
-    <li>
-      <a
-        (click)="filterResults({ byPriceHighToLow: true })"
-        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
-      >
-        <div class="flex justify-between items-center">
-          <p class="inline-block">Price: High to Low</p>
-          <input id="high_to_low_filter" type="checkbox" name="filter" />
-        </div>
-      </a>
-    </li>
-    <li>
-      <a
-        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
-      >
-        <div class="flex justify-between items-center">
-          <p class="inline-block">Minimum price</p>
-          <input
-            #minPrice
-            type="number"
-            placeholder="₹"
-            class="w-20 h-5 p-2.5 rounded-md"
-          />
-          <input
-            id="min_filter"
-            type="checkbox"
-            name="filter"
-            (click)="
-              filterResults({ byMinimumPrice: true, price: minPrice.value })
-            "
-          />
-        </div>
-      </a>
-    </li>
-    <li>
-      <a
-        class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
-      >
-        <div class="flex justify-between items-center">
-          <p class="inline-block">Maximum price</p>
-          <input
-            #maxPrice
-            type="number"
-            placeholder="₹"
-            class="w-20 h-5 p-2.5 rounded-md"
-          />
-          <input
-            id="max_filter"
-            type="checkbox"
-            name="filter"
-            (click)="
-              filterResults({ byMaximumPrice: true, price: maxPrice.value })
-            "
-          />
-        </div>
-      </a>
-    </li>
-  </ul>
-  <div class="block py-2 px-4 text-green-700 dark:text-gray-300">
-    <ul>
-      Brand
-      <li>
-        <a
-          (click)="filterByBrand({ byAmazon: true })"
-          class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
-        >
-          <div class="flex justify-between items-center">
-            <p class="inline-block">Amazon</p>
-            <input id="amazon_filter" type="radio" name="filter" />
-          </div>
-        </a>
-      </li>
-      <li>
-        <a
-          (click)="filterByBrand({ byFlipkart: true })"
-          class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
-        >
-          <div class="flex justify-between items-center">
-            <p class="inline-block">Flipkart</p>
-            <input id="flipkat_filter" type="radio" name="filter" />
-          </div>
-        </a>
-      </li>
-      <li>
-        <a
-          (click)="filterByBrand({ byShopClues: true })"
-          class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
-        >
-          <div class="flex justify-between items-center">
-            <p class="inline-block">ShopClues</p>
-            <input id="shopclues_filter" type="radio" name="filter" />
-          </div>
-        </a>
-      </li>
-      <li>
-        <a
-          (click)="filterByBrand({ byReliance: true })"
-          class="block py-2 px-4 hover:bg-white text-green-700 cursor-pointer dark:hover:bg-gray-800 dark:text-gray-300"
-        >
-          <div class="flex justify-between items-center">
-            <p class="inline-block">Reliance</p>
-            <input id="reliance_filter" type="radio" name="filter" />
-          </div>
-        </a>
-      </li>
-    </ul>
-  </div>
-</div> -->

@@ -27,35 +27,35 @@
         <div id="primary-nav" class="hidden md:flex h-7 items-center -mr-32">
           <a
             (click)="onNavLinkClick('/home')"
-            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
+            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-card-background active:bg-green-400 hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
             >Home</a
           >
           <a
             (click)="onNavLinkClick('/about')"
-            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
+            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-card-background active:bg-green-400 hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
             >About</a
           >
           <a
             (click)="onNavLinkClick('/contact')"
-            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
+            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-card-background active:bg-green-400 hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
             >Contact</a
           >
 
           <a
             *ngIf="authService.userLoggedIn"
             (click)="onNavLinkClick('/logout')"
-            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
+            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-card-background active:bg-green-400 hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
             >Logout</a
           >
           <a
             *ngIf="!authService.userLoggedIn"
             (click)="onNavLinkClick('/login')"
-            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
+            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-card-background active:bg-green-400 hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
             >Login</a
           >
           <a
             (click)="onNavLinkClick('/signup')"
-            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-custom-light-teal hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
+            class="dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-card-background active:bg-green-400 hover:text-green-900 text-green-700 transition duration-300 text-lg cursor-pointer py-4 px-3 m-1 rounded-md"
             >Signup</a
           >
         </div>

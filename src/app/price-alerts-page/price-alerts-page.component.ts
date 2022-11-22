@@ -14,6 +14,7 @@ export class PriceAlertsPageComponent implements OnInit {
   // email = this.sharingService.getEmail();
   email = localStorage.getItem('email') as string;
   subscriptions: any = [];
+  links: any = [];
 
   constructor(
     public authService: AuthService,
@@ -26,6 +27,7 @@ export class PriceAlertsPageComponent implements OnInit {
     this.api.readFromCart(this.email).subscribe({
       next: (result: any) => {
         this.subscriptions = result[0]['title'];
+        this.links = result[0]['link'];
         console.log(result);
       },
       error: (err) => console.log(err),
@@ -36,13 +38,23 @@ export class PriceAlertsPageComponent implements OnInit {
     this.showPopUp = true;
     let temp: any = [];
     for (let i = 0; i < this.subscriptions.length; i++) {
-      if (i != index) temp.push(this.subscriptions[i]);
-      else this.tempItem = this.subscriptions[i];
+      if (i != index) {
+        temp.push(this.subscriptions[i]);
+      } else {
+        this.tempItem = this.subscriptions[i];
+        console.log(this.tempItem);
+        this.api
+          .deleteFromCart(this.email, this.links[i], this.tempItem)
+          .subscribe({
+            next: (data) => {
+              console.log(data);
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
+      }
     }
     this.subscriptions = temp;
-  }
-  undo() {
-    this.subscriptions.push(this.tempItem);
-    this.showPopUp = false;
   }
 }

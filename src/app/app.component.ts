@@ -32,7 +32,7 @@ export class AppComponent {
     const bd = document.body;
     bd.classList.toggle('dark');
     if (!this.isDarkModeEnable)
-      bd.className = 'bg-gradient-to-br from-[#95d1c8] to-[#58aca0]';
+      bd.className = 'bg-gradient-to-br from-[#7cccc6] to-[#97d9e7]';
     else bd.className = 'bg-gradient-to-br from-[#0f172a] to-[#1e293b]';
   }
 }

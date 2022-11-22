@@ -50,7 +50,7 @@ export class LoginPageComponent implements OnInit {
           // null is success, false means there was an error
           console.log('logging in...');
           // this.sharingService.setEmail(this.authService.authState.email);
-          localStorage.setItem('email', this.authService.userEmail);
+          localStorage.setItem('email', this.loginForm.value.email);
           // show a pop up
           this.loginMessage = 'User logged in successfuly.';
           this.showPopUp = true;

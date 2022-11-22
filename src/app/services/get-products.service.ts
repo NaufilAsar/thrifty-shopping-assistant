@@ -17,7 +17,8 @@ export class GetProductsService {
   }
 
   getSpecfications(link: string) {
-    return this.http.get(this.apiUrl + '/specs?link=' + link);
+    let url = this.apiUrl + '/specs?link=' + link;
+    return this.http.get(url);
   }
 
   getSuggestedProduct(product: string) {
@@ -27,7 +28,7 @@ export class GetProductsService {
   deleteFromCart(email: string, link: string, title: string) {
     return this.http.get(
       this.apiUrl +
-        '/wishlist?act=i&id=' +
+        '/wishlist?act=d&id=' +
         email +
         '&title=' +
         title +
