@@ -30,13 +30,14 @@
       type="text"
       [formControl]="search_bar"
       placeholder="Search.."
-      class="block text-center rounded-md border-none shadow-md my-5 mx-auto w-full text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95"
+      (keydown.enter)="onClickSearch()"
+      class="block text-center rounded-md border-none shadow-md my-5 mx-auto w-full text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95 focus:ring-4 focus:ring-[rgba(21,112,100,0.4)]"
     />
     <button
       id="search_btn"
       type="button"
       (click)="onClickSearch()"
-      class="w-10 h-10 dark:bg-teal-500 bg-custom-dark-teal active:bg-emerald-600 dark:active:bg-teal-600 text-gray-200 rounded-md shadow-md"
+      class="w-10 h-10 dark:bg-teal-500 focus:ring-4 focus:outline-none dark:focus:ring-teal-700 focus:ring-[rgba(21,112,100,0.4)] bg-custom-dark-teal active:bg-emerald-600 dark:active:bg-teal-600 text-gray-200 rounded-md shadow-md"
     >
       <fa-icon [icon]="search_icon"></fa-icon>
     </button>
