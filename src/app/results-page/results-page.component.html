@@ -23,24 +23,25 @@
     class="flex justify-center items-center my-10 mx-8 md:mx-auto md:w-7/12 gap-2"
   >
     <input
+      id="search_box"
       type="text"
       [formControl]="search_bar"
+      placeholder="Search.."
       (keydown.enter)="onClickSearch()"
-      placeholder="Search something else.."
-      class="block m text-center rounded-md border-none shadow-md my-5 mx-auto w-full text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95"
+      class="block text-center rounded-md border-none shadow-md my-5 mx-auto w-full text-green-900 font-poppins font-semibold opacity-60 bg-teal dark:opacity-95 focus:ring-4 focus:ring-[rgba(21,112,100,0.4)] dark:focus:ring-teal-700"
     />
     <button
       id="search_btn"
       type="button"
       (click)="onClickSearch()"
-      class="w-10 h-10 bg-soft-green dark:bg-teal-500 text-gray-200 rounded-md shadow-md"
+      class="w-10 h-10 dark:bg-teal-500 focus:ring-4 focus:outline-none dark:focus:ring-teal-700 focus:ring-[rgba(21,112,100,0.4)] bg-custom-dark-teal active:bg-emerald-600 dark:active:bg-teal-600 text-gray-200 rounded-md shadow-md"
     >
       <fa-icon [icon]="search_icon"></fa-icon>
     </button>
   </form>
 
   <!-- Suggestions -->
-  <div #suggestion>
+  <div #suggestion *ngIf="!fetchedFromCategory">
     <app-suggestion-card
       [product]="suggestedProduct"
       [specs]="specifications"
@@ -309,12 +310,12 @@
             | paginate: { itemsPerPage: 30, currentPage: pageNumber };
           let i = index
         "
-        id="{{ i }}"
-        class="animated-card hover:scale-105 hover:shadow-xl dark:hover:bg-dark-bootstrap-transparent hover:rounded-lg"
+        ngClass="{ 'animated-card': !fetchedFromCategory }"
+        class="hover:scale-105 hover:shadow-xl dark:hover:bg-dark-bootstrap-transparent hover:rounded-lg"
       >
         <div
-          id="now"
-          class="w-80 max-w-sm flex flex-col relative bg-card-background rounded-lg shadow-md dark:bg-dark-bootstrap-transparent dark:border-gray-700"
+          id="{{ i }}"
+          class="results-card w-80 max-w-sm flex flex-col relative bg-card-background rounded-lg shadow-md dark:bg-dark-bootstrap-transparent dark:border-gray-700"
           style="
             height: 24.5rem;
             display: flex;

@@ -17,7 +17,7 @@
       <!-- Image -->
       <div style="flex: 1" class="">
         <img
-          class="p-5 mx-auto my-auto"
+          class="p-5 mx-auto my-auto object-cover"
           loading="lazy"
           style="
             border-radius: 12%;
@@ -72,7 +72,7 @@
                 </p>
                 <p
                   *ngIf="product.price != product.mrp"
-                  class="text-base md:text-lg block text-red-600 dark:text-red-400 -mb-1 ml-2"
+                  class="text-base md:text-lg block text-red-600 dark:text-red-400"
                 >
                   MRP: <s> {{ product.mrp }} </s>
                 </p>

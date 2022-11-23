@@ -37,6 +37,7 @@ export class ResultsPageComponent implements OnInit {
   showPopUp = false;
   showFilters = false;
   hideFilterDropdown = true;
+  fetchedFromCategory = false;
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -76,6 +77,7 @@ export class ResultsPageComponent implements OnInit {
           params['search'] == undefined
         ) {
           // category
+          this.fetchedFromCategory = true;
           // now fetch all products for the category.
           this.fetchProductsForCategory(params['category']);
         } else if (
@@ -83,6 +85,8 @@ export class ResultsPageComponent implements OnInit {
           params['category'] === undefined
         ) {
           // Normal search for products
+          this.fetchedFromCategory = false;
+
           this.fetchProducts(params['search']);
           this.fetchSuggestions(params['search']);
         }
@@ -181,6 +185,8 @@ export class ResultsPageComponent implements OnInit {
     else this.productName = 'Category: ' + categoryName;
     // loop for every product of a category and store the results.
     this.results = [];
+    // remove animation
+
     for (let i = 0; i < categoryArray.length; i++) {
       this.api.getSearchResults(categoryArray[i]).subscribe({
         next: (products: any) => {
@@ -198,6 +204,7 @@ export class ResultsPageComponent implements OnInit {
               x.link != undefined
             );
           });
+          // add animation
           this.results = this.shuffleArray(this.results);
           this.isLoading = false;
         },
