@@ -13,7 +13,7 @@
     class="w-full flex flex-col justify-between items-stretch"
     (click)="onProductClick(product)"
   >
-    <div class="flex justify-around">
+    <div class="flex flex-col md:flex-row justify-around">
       <!-- Image -->
       <div style="flex: 1" class="">
         <img
@@ -44,15 +44,15 @@
 
         <div class="flex flex-row">
           <!-- Price and MRP, Site Button -->
-          <div>
+          <div class="flex justify-around w-full md:w-fit md:block">
             <!-- Price and MRP -->
             <div class="px-5 pb-5 mt-auto">
               <div
                 class="text-lg md:text-xl font-bold text-green-500 dark:text-gray-300"
                 style="font-family: Poppins"
               >
-                <p class="mr-1 ml-1">
-                  <span class="inline">Price:</span>
+                <p class="mx-0 inline md:block md:mr-1 md:ml-1">
+                  <span class="hidden md:inline">Price:</span>
                   <!-- Rupee symbol -->
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -72,9 +72,10 @@
                 </p>
                 <p
                   *ngIf="product.price != product.mrp"
-                  class="text-base md:text-lg block text-red-600 dark:text-red-400"
+                  class="inline ml-1 md:ml-0 md:block text-base md:text-lg text-red-600 dark:text-red-400"
                 >
-                  MRP: <s> {{ product.mrp }} </s>
+                  <span class="hidden md:inline"> MRP: </span>
+                  <s> {{ product.mrp }} </s>
                 </p>
               </div>
             </div>
@@ -96,7 +97,7 @@
           </div>
 
           <!-- Specs -->
-          <div class="relative bottom-3">
+          <div class="relative bottom-3 hidden md:block">
             <div *ngFor="let p of specs | keyvalue" class="flex ml-8 my-1">
               <p
                 class="block text-base ml-3 font-ubuntu text-custom-dark-teal dark:text-gray-300"
