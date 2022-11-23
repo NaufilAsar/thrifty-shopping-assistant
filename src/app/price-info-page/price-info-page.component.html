@@ -41,12 +41,9 @@
       <h1 class="text-2xl text-center font-semibold underline mt-20">
         Specfications:
       </h1>
-      <div
-        *ngFor="let p of specs | keyvalue"
-        class="flex justify-evenly ml-8 my-3"
-      >
+      <div *ngFor="let p of specs | keyvalue" class="flex ml-8 my-3">
         <!-- <p class="text-base inline-block">{{ p.key }}:</p> -->
-        <p class="text-base mr-auto">{{ p.key }} : {{ p.value }}</p>
+        <p class="text-base text-left">{{ p.key }} : {{ p.value }}</p>
       </div>
     </div>
   </div>
