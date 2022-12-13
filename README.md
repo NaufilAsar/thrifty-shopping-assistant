@@ -1,27 +1,58 @@
-# MajorProject
+# Thrifty E-Shopping Assistant
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
+This project was made as a part of the Final Year Major Project for our Diploma in Computer Engineering.
+The front-end of the website is hosted using Firebase. And the back-end is on an old laptop using Linux Server along with Apache
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+( You can only use the website when we turn on our custom server at home ).
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## About
 
-## Build
+This is the front end part of the full-stack dynamic web application built by me with help of:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Angular
+- Tailwind CSS
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Features
 
-## Running end-to-end tests
+- Multi-Site browsing for shopping online products
+- AI suggestions based on search
+- Email notifications for product price changes
+-
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+---
 
-## Further help
+## View The Website :
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+https://thrifty-shopping-assistant.web.app/
+
+---
+
+## Dependencies
+
+- LottieFiles Animation
+- Angular Fire (Email Authentication)
+- NgxPagination
+- NgCharts (ChartJs)
+- Flowbite
+
+---
+
+## Getting Started
+
+Requires angular cli and npm package manager, pktriot, mongodb.
+
+- clone the repository
+- open the repository in terminal using `cd` command
+- `npm install`
+- `ng serve`
+- clone [this repository for using services.](https://github.com/Dark-Kernel/node-api)
+- open the repository in terminal using `cd` command
+- `mongodd`
+- `pktriot start &`
+- `node index.js &`
