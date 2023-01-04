@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -9,7 +10,9 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 export class AboutPageComponent implements OnInit {
   faHeart = faHeart;
 
-  constructor() {}
+  constructor(title: Title) {
+    title.setTitle('About - Thrifty');
+  }
 
   ngOnInit(): void {}
 }

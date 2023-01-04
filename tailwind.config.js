@@ -11,10 +11,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Light theme colors
-        // primary: "#2577c1",
-        // "secondary-bg": "#fff",
-        // theme: "#fff",
         navy: "#16123f",
         mint: "#c7ddcc",
         "card-background": "rgb(179, 232, 229)",
@@ -28,20 +24,6 @@ module.exports = {
         "more-transparent-light-teal": "rgba(219,243,235,0.3)",
         "dark-bootstrap": "#343a40",
         "dark-bootstrap-transparent": "rgba(52, 58, 64, 0.2)",
-
-        // black: colors.black,
-        // white: colors.white,
-        // gray: colors.gray,
-        // red: colors.red,
-        // yellow: colors.yellow,
-        // green: colors.green,
-        // blue: colors.blue,
-        // indigo: colors.indigo,
-        // purple: colors.purple,
-        // teal: colors.teal,
-        // orange: colors.orange,
-        // pink: colors.pink,
-        // slate: colors.slate,
       },
     },
   },

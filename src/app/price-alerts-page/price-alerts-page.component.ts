@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { AuthService } from '../services/auth.service';
 import { GetProductsService } from '../services/get-products.service';
 import { SharingService } from '../services/sharing.service';
@@ -19,8 +20,11 @@ export class PriceAlertsPageComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private api: GetProductsService,
-    public sharingService: SharingService
-  ) {}
+    public sharingService: SharingService,
+    title: Title
+  ) {
+    title.setTitle('Price Alerts - Thrifty');
+  }
 
   ngOnInit(): void {
     console.log(this.email, typeof this.email);

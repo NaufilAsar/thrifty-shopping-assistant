@@ -23,7 +23,7 @@ export class SignupPageComponent implements OnInit {
     private router: Router,
     private afAuth: AngularFireAuth
   ) {
-    title.setTitle('Login - Thrifty');
+    title.setTitle('Signup - Thrifty');
     this.signupForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),

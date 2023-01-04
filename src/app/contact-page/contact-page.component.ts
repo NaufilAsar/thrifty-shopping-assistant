@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 
 @Component({
@@ -13,7 +14,9 @@ export class ContactPageComponent implements OnInit {
   contactForm = new FormGroup('');
   email = new FormControl('', [Validators.required, Validators.email]);
   body = new FormControl('', Validators.required);
-  constructor() {}
+  constructor(title: Title) {
+    title.setTitle('Contact - Thrifty');
+  }
 
   ngOnInit(): void {}
 

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,7 +10,9 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router, title: Title) {
+    title.setTitle('Home - Thrifty');
+  }
   search_bar = new FormControl(''); // search bar
   search_icon = faMagnifyingGlass; // search icon
   resultsLoaded = false; // change to true when results loaded from API
