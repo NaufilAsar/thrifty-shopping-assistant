@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GetProductsService {
   // apiUrl = 'http://localhost:8080';
-  apiUrl = 'https://tender-grass-55002.pktriot.net';
+  //apiUrl = 'https://tender-grass-55002.pktriot.net';
+  apiUrl = 'http://54.237.86.13:30003/';
   constructor(private http: HttpClient) {}
   getProducts(path: string) {
     return this.http.get(this.apiUrl + path);
