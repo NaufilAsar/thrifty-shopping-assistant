@@ -1,7 +1,7 @@
 # Thrifty E-Shopping Assistant
 
 This project was made as a part of the Final Year Major Project for our Diploma in Computer Engineering.
-The front-end of the website is hosted using Firebase. And the back-end is on an old laptop using Linux Server along with Apache
+The front end of the website is hosted using Firebase. And the back end is on an old laptop using a Linux Server along with Apache
 
 ---
 
@@ -11,7 +11,7 @@ The front-end of the website is hosted using Firebase. And the back-end is on an
 
 ## About
 
-This is the front end part of the full-stack dynamic web application built by me with help of:
+This is the front-end part of the full-stack dynamic web application built with help of:
 
 - Angular
 - Tailwind CSS
@@ -20,7 +20,7 @@ This is the front end part of the full-stack dynamic web application built by me
 
 ## Features
 
-- Multi-Site browsing for shopping online products
+- Multi-site browsing for shopping online products
 - AI suggestions based on search
 - Email notifications for product price changes
 -
@@ -45,14 +45,14 @@ https://thrifty-shopping-assistant.web.app/
 
 ## Getting Started
 
-Requires angular cli and npm package manager, pktriot, mongodb.
+Requires angular cli and npm package manager, pktriot, MongoDB.
 
 - clone the repository
-- open the repository in terminal using `cd` command
+- open the repository in the terminal using `cd` command
 - `npm install`
 - `ng serve`
 - clone [this repository for using services.](https://github.com/Dark-Kernel/node-api)
-- open the repository in terminal using `cd` command
+- open the repository in the terminal using `cd` command
 - `mongodd`
 - `pktriot start &`
 - `node index.js &`
