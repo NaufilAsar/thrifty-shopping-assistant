@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: thrifty-service
-  namespace: webserverss
+  namespace: thrifty
 spec:
   selector:
     app: thrifty-frontend
