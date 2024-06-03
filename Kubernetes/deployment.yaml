@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: thrifty-deployment
+  labels:
+    app: thrifty-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: thrifty-frontend
+  template:
+    metadata:
+      labels:
+        app: thrifty-frontend
+    spec:
+      containers:
+      - name: thrifty-frontend
+        image: darkkernel/thrifty-frontend
+        ports:
+        - containerPort: 80
+
+
