@@ -15,7 +15,7 @@ pipeline {
             steps{
                 withCredentials([usernamePassword(credentialsId:"dockerhubid", passwordVariable:"dockerhubidPass", usernameVariable:"dockerhubidUser")]){
                     sh "docker login -u ${env.dockerhubidUser} -p ${env.dockerhubidPass}"
-                    sh "docker tag node-api ${env.dockerhubidUser}/thrifty-frontend:latest"
+                    sh "docker tag thrifty-frontend ${env.dockerhubidUser}/thrifty-frontend:latest"
                     sh "docker push ${env.dockerhubidUser}/thrifty-frontend:latest"
                 }
                 echo "Pushed to docker hub registry"
